@@ -992,49 +992,791 @@ Esto es compatible con `const` porque se modifica el objeto, no se reasigna la v
 
 ---
 
-# Arrays
+# Estructuras de control
 
-Un **array** es un objeto especializado para representar colecciones ordenadas.
+## Condicional `if`
 
-```javascript
-const habilidades = [
-  "comunicación",
-  "puntualidad",
-  "negociación"
-];
-```
-
-Sus índices comienzan en `0`:
+`if` permite ejecutar un bloque cuando una condición resulta verdadera.
 
 ```javascript
-console.log(habilidades[0]); // "comunicación"
-console.log(habilidades[1]); // "puntualidad"
+const edad = 20;
+
+if (edad >= 18) {
+  console.log("Es mayor de edad");
+}
 ```
 
-JavaScript permite mezclar tipos:
+Puede complementarse con `else`:
 
 ```javascript
-const datos = [
-  10,
-  "texto",
-  true,
-  { nombre: "Ana" },
-  [1, 2, 3]
-];
+if (edad >= 18) {
+  console.log("Mayor");
+} else {
+  console.log("Menor");
+}
 ```
 
-Entre los métodos anticipados en la clase están:
+## Operador condicional ternario
 
-- `push`;
-- `pop`;
-- `shift`;
-- `unshift`;
-- `map`;
-- `filter`.
+El operador ternario expresa una selección entre dos expresiones:
 
-Se desarrollarán cuando sean utilizados en ejercicios.
+```javascript
+const resultado = edad >= 18
+  ? "Mayor"
+  : "Menor";
+```
+
+Su forma general es:
+
+```text
+condición ? expresiónSiVerdadero : expresiónSiFalso
+```
+
+Es útil para decisiones breves. Cuando la lógica contiene múltiples pasos o ramas complejas, un `if` suele ser más legible.
+
+## Bucles
+
+### `for`
+
+`for` es apropiado cuando la iteración se controla mediante inicialización, condición y actualización.
+
+```javascript
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+```
+
+### `while`
+
+`while` repite un bloque mientras la condición sea verdadera.
+
+```javascript
+let i = 0;
+
+while (i < 5) {
+  console.log(i);
+  i++;
+}
+```
+
+### `do...while`
+
+`do...while` evalúa la condición después de ejecutar el cuerpo, por lo que este se ejecuta al menos una vez.
+
+```javascript
+let i = 0;
+
+do {
+  console.log(i);
+  i++;
+} while (i < 5);
+```
+
+Los métodos de arrays como `forEach()`, `map()` o `filter()` no reemplazan conceptualmente a todos los bucles, pero ofrecen abstracciones expresivas para operaciones habituales sobre colecciones.
 
 ---
+
+# DOM
+
+## Qué es el DOM
+
+El **DOM (Document Object Model)** es una representación programática de un documento HTML como una estructura de nodos.
+
+Por ejemplo, a partir de:
+
+```html
+<body>
+  <main>
+    <h1>Frontend</h1>
+    <p>Introducción al DOM</p>
+  </main>
+</body>
+```
+
+puede pensarse una jerarquía como:
+
+```mermaid
+graph TD
+    A[Document] --> B[html]
+    B --> C[head]
+    B --> D[body]
+    D --> E[main]
+    E --> F[h1]
+    E --> G[p]
+```
+
+JavaScript puede interactuar con esa representación para:
+
+- consultar elementos;
+- cambiar contenido;
+- modificar atributos;
+- cambiar clases o estilos;
+- crear o eliminar nodos;
+- reaccionar a eventos.
+
+El DOM no es el texto HTML original ni forma parte del núcleo de ECMAScript: es una API proporcionada por el entorno del navegador.
+
+---
+
+# Eventos
+
+## Concepto
+
+Un **evento** representa algo que ocurre en el entorno y que el programa puede observar: un clic, una tecla presionada, un cambio en un campo, la carga de un recurso, entre muchos otros.
+
+El patrón general es:
+
+```text
+ocurre un evento
+      ↓
+el navegador lo detecta
+      ↓
+se ejecuta una función asociada
+```
+
+Por ejemplo:
+
+```javascript
+const boton = document.querySelector("#guardar");
+
+boton.addEventListener("click", () => {
+  console.log("Se hizo clic");
+});
+```
+
+Aquí:
+
+- `"click"` es el tipo de evento;
+- la función entregada a `addEventListener()` es el callback que se ejecutará cuando ocurra.
+
+## Nombre del evento y manejador
+
+Conviene distinguir el nombre del evento de propiedades históricas como `onclick`.
+
+Con `addEventListener()` se utiliza:
+
+```javascript
+elemento.addEventListener("click", callback);
+```
+
+no:
+
+```javascript
+elemento.addEventListener("onclick", callback);
+```
+
+`click` es el tipo de evento. `onclick` es una propiedad para asignar un manejador:
+
+```javascript
+boton.onclick = () => {
+  console.log("clic");
+};
+```
+
+En código moderno, `addEventListener()` suele ser preferible porque permite registrar múltiples listeners y ofrece más opciones de control.
+
+Otros eventos frecuentes son:
+
+```text
+keydown
+input
+change
+submit
+focus
+blur
+load
+mouseover
+```
+
+---
+
+# Manejo de errores
+
+## `try...catch`
+
+`try...catch` permite capturar excepciones que ocurren durante la ejecución.
+
+```javascript
+try {
+  JSON.parse("texto que no es JSON");
+} catch (error) {
+  console.error("No se pudo procesar el JSON");
+}
+```
+
+El bloque `try` contiene el código que puede lanzar una excepción.
+
+Si ocurre una excepción capturable, la ejecución salta al `catch`.
+
+El objeto recibido en `catch` permite inspeccionar información sobre el error:
+
+```javascript
+try {
+  JSON.parse("{");
+} catch (error) {
+  console.log(error.name);
+  console.log(error.message);
+}
+```
+
+## `finally`
+
+Puede agregarse un bloque `finally`:
+
+```javascript
+try {
+  console.log("Intento");
+} catch (error) {
+  console.error(error);
+} finally {
+  console.log("Esto se ejecuta al finalizar");
+}
+```
+
+`finally` se ejecuta tanto si el `try` completa normalmente como si se produce una excepción capturada.
+
+## Qué no hace `try...catch`
+
+No debe entenderse como un mecanismo que vuelve seguro cualquier código o evita que “el programa explote” ante cualquier problema.
+
+`try...catch` trabaja con **excepciones lanzadas durante la ejecución** dentro de su alcance. No corrige errores lógicos y existen situaciones asincrónicas en las que un `try...catch` externo no captura automáticamente un error producido posteriormente.
+
+El tratamiento detallado de errores asincrónicos se relacionará más adelante con promesas y `async`/`await`.
+
+---
+
+# Arrays
+
+## Qué es un array
+
+Un **array** es un objeto especializado de JavaScript para representar colecciones ordenadas de valores.
+
+```javascript
+const frutas = ["manzana", "pera", "banana"];
+```
+
+Sus características básicas son:
+
+- mantiene un orden;
+- cada elemento posee un índice numérico;
+- el primer índice es `0`;
+- su longitud se consulta mediante `length`;
+- puede contener valores de distintos tipos;
+- es mutable: determinados métodos pueden modificar su contenido.
+
+```javascript
+console.log(frutas[0]);     // "manzana"
+console.log(frutas.length); // 3
+```
+
+Aunque conceptualmente puede pensarse como una colección o secuencia, JavaScript no posee un tipo incorporado denominado `List` equivalente a las listas de otros lenguajes. Conviene estudiar `Array` según su propio comportamiento en JavaScript.
+
+## Creación
+
+La forma literal es la más habitual:
+
+```javascript
+const numeros = [10, 20, 30];
+```
+
+También existe el constructor:
+
+```javascript
+const numeros = new Array(10, 20, 30);
+```
+
+Debe tenerse cuidado con una llamada como:
+
+```javascript
+const valores = new Array(5);
+```
+
+Esto no crea `[5]`: crea un array con `length === 5` y cinco posiciones vacías.
+
+En código habitual, la sintaxis literal suele ser más clara.
+
+## Detección de arrays
+
+Como los arrays son objetos:
+
+```javascript
+typeof []; // "object"
+```
+
+`typeof` no permite distinguir un array de un objeto común.
+
+Para verificar específicamente si un valor es un array se utiliza:
+
+```javascript
+Array.isArray([1, 2, 3]); // true
+Array.isArray({});        // false
+```
+
+## Igualdad y referencias
+
+Dos arrays creados por separado son objetos distintos aunque contengan los mismos elementos:
+
+```javascript
+const a = [1, 2, 3];
+const b = [1, 2, 3];
+
+console.log(a === b); // false
+```
+
+En cambio:
+
+```javascript
+const a = [1, 2, 3];
+const b = a;
+
+console.log(a === b); // true
+```
+
+`a` y `b` referencian el mismo array.
+
+---
+
+## Métodos que consultan o crean resultados sin modificar el array original
+
+Es importante distinguir los métodos que **mutan** el array receptor de los que producen información o nuevos arrays.
+
+### `filter()`
+
+`filter()` recorre el array y devuelve un **nuevo array** con todos los elementos que cumplen una condición.
+
+```javascript
+const frutas = ["manzana", "pera", "banana", "pera"];
+
+const peras = frutas.filter(fruta => fruta === "pera");
+
+console.log(peras);  // ["pera", "pera"]
+console.log(frutas); // no se modifica
+```
+
+También puede filtrarse por propiedades de objetos:
+
+```javascript
+const materias = [
+  { nombre: "Frontend", activa: true },
+  { nombre: "Backend", activa: false },
+  { nombre: "Datos", activa: true }
+];
+
+const activas = materias.filter(materia => materia.activa);
+```
+
+`filter()` no “elimina” elementos del array original. Puede utilizarse para construir un nuevo array que excluya determinados elementos:
+
+```javascript
+const sinPeras = frutas.filter(fruta => fruta !== "pera");
+```
+
+pero `frutas` continúa intacto.
+
+### `find()`
+
+`find()` devuelve el **primer elemento** que satisface la condición.
+
+```javascript
+const numeros = [2, 7, 12, 20];
+
+const encontrado = numeros.find(numero => numero > 10);
+
+console.log(encontrado); // 12
+```
+
+Si no encuentra ninguno, devuelve `undefined`.
+
+Una diferencia conceptual importante:
+
+- `filter()` busca todas las coincidencias y devuelve un array;
+- `find()` se detiene cuando encuentra la primera coincidencia y devuelve ese elemento.
+
+Cuando solo se necesita una coincidencia, `find()` expresa mejor la intención y puede evitar recorrer innecesariamente el resto del array.
+
+### `findIndex()`
+
+`findIndex()` devuelve el índice del primer elemento que satisface la condición.
+
+```javascript
+const numeros = [2, 7, 12, 20];
+
+const indice = numeros.findIndex(numero => numero > 10);
+
+console.log(indice); // 2
+```
+
+Si no existe coincidencia devuelve `-1`.
+
+### `some()`
+
+`some()` responde si **al menos un elemento** cumple la condición.
+
+```javascript
+const numeros = [2, 4, 7];
+
+console.log(numeros.some(numero => numero % 2 !== 0)); // true
+```
+
+Devuelve un booleano y puede finalizar tan pronto encuentra una coincidencia.
+
+### `every()`
+
+`every()` responde si **todos los elementos** cumplen la condición.
+
+```javascript
+const numeros = [2, 4, 8];
+
+console.log(numeros.every(numero => numero % 2 === 0)); // true
+```
+
+Si algún elemento no satisface la condición, puede finalizar la búsqueda inmediatamente.
+
+### `slice()`
+
+`slice()` devuelve una **copia superficial** de una porción del array y no modifica el original.
+
+```javascript
+const letras = ["a", "b", "c", "d", "e", "f"];
+
+const parte = letras.slice(2, 5);
+
+console.log(parte);  // ["c", "d", "e"]
+console.log(letras); // sin cambios
+```
+
+El índice inicial se incluye y el índice final se excluye:
+
+```text
+slice(inicio, fin)
+      incluido
+              excluido
+```
+
+### `concat()`
+
+`concat()` combina valores o arrays y devuelve un nuevo array.
+
+```javascript
+const a = [1, 2];
+const b = [3, 4];
+
+const combinado = a.concat(b);
+
+console.log(combinado); // [1, 2, 3, 4]
+console.log(a);         // [1, 2]
+```
+
+### `forEach()`
+
+`forEach()` ejecuta una función una vez por cada elemento.
+
+```javascript
+const frutas = ["manzana", "pera", "banana"];
+
+frutas.forEach(fruta => {
+  console.log(fruta);
+});
+```
+
+El callback puede recibir tres argumentos:
+
+```javascript
+frutas.forEach((elemento, indice, array) => {
+  console.log(elemento);
+  console.log(indice);
+  console.log(array);
+});
+```
+
+Por convención:
+
+1. primer parámetro: elemento actual;
+2. segundo: índice;
+3. tercero: array recorrido.
+
+`forEach()` no crea automáticamente un nuevo array transformado. Su valor de retorno es `undefined`.
+
+Esto no significa que sea imposible modificar datos desde su callback. Por ejemplo:
+
+```javascript
+const numeros = [1, 2, 3];
+
+numeros.forEach((numero, indice, array) => {
+  array[indice] = numero * 2;
+});
+
+console.log(numeros); // [2, 4, 6]
+```
+
+La mutación ocurre porque el callback modifica explícitamente el array original.
+
+Para producir una colección transformada suele ser más apropiado `map()`.
+
+### `map()`
+
+`map()` devuelve un nuevo array aplicando una transformación a cada elemento.
+
+```javascript
+const numeros = [1, 2, 3];
+
+const dobles = numeros.map(numero => numero * 2);
+
+console.log(dobles);  // [2, 4, 6]
+console.log(numeros); // [1, 2, 3]
+```
+
+La diferencia central frente a `forEach()` es de intención y retorno:
+
+- `forEach()` ejecuta una acción por elemento y devuelve `undefined`;
+- `map()` construye y devuelve un nuevo array con los resultados.
+
+---
+
+## Métodos que modifican el array original
+
+### `push()`
+
+Agrega uno o más elementos al final y devuelve la nueva longitud.
+
+```javascript
+const frutas = ["manzana"];
+
+const longitud = frutas.push("pera");
+
+console.log(frutas);  // ["manzana", "pera"]
+console.log(longitud); // 2
+```
+
+### `pop()`
+
+Elimina y devuelve el último elemento.
+
+```javascript
+const frutas = ["manzana", "pera"];
+
+const ultima = frutas.pop();
+
+console.log(ultima);  // "pera"
+console.log(frutas);  // ["manzana"]
+```
+
+### `shift()`
+
+Elimina y devuelve el primer elemento.
+
+```javascript
+const frutas = ["manzana", "pera"];
+
+const primera = frutas.shift();
+
+console.log(primera); // "manzana"
+console.log(frutas);  // ["pera"]
+```
+
+### `unshift()`
+
+Agrega uno o más elementos al principio y devuelve la nueva longitud.
+
+```javascript
+const frutas = ["pera"];
+
+frutas.unshift("manzana");
+
+console.log(frutas); // ["manzana", "pera"]
+```
+
+### `fill()`
+
+`fill()` reemplaza posiciones del array con un valor y **modifica el array original**.
+
+```javascript
+const valores = ["a", "b", "c", "d", "e"];
+
+valores.fill("x", 1, 4);
+
+console.log(valores);
+// ["a", "x", "x", "x", "e"]
+```
+
+La forma general es:
+
+```javascript
+array.fill(valor, inicio, fin);
+```
+
+- `inicio` está incluido;
+- `fin` está excluido;
+- si se omiten índices, puede reemplazarse todo el array.
+
+Además, `fill()` devuelve una referencia al mismo array modificado.
+
+### `splice()`
+
+`splice()` permite eliminar, insertar o reemplazar elementos **modificando el array original**.
+
+Forma general:
+
+```javascript
+array.splice(indiceInicial, cantidadAEliminar, ...elementosNuevos);
+```
+
+#### Eliminar
+
+```javascript
+const numeros = [1, 2, 3, 4, 5];
+
+const eliminados = numeros.splice(2, 1);
+
+console.log(numeros);   // [1, 2, 4, 5]
+console.log(eliminados); // [3]
+```
+
+#### Insertar sin eliminar
+
+```javascript
+const numeros = [1, 2, 3, 4, 5];
+
+numeros.splice(2, 0, 99, 100);
+
+console.log(numeros);
+// [1, 2, 99, 100, 3, 4, 5]
+```
+
+#### Reemplazar
+
+```javascript
+const numeros = [1, 2, 3, 4, 5];
+
+const eliminados = numeros.splice(2, 2, 99, 100);
+
+console.log(numeros);
+// [1, 2, 99, 100, 5]
+
+console.log(eliminados);
+// [3, 4]
+```
+
+La distinción es importante:
+
+- modifica el array original;
+- devuelve un nuevo array que contiene los elementos eliminados.
+
+## `slice()` frente a `splice()`
+
+Aunque sus nombres se parecen, sus comportamientos son muy distintos:
+
+| Método | Modifica original | Resultado principal |
+|---|---:|---|
+| `slice()` | No | copia una porción |
+| `splice()` | Sí | inserta/elimina/reemplaza y devuelve eliminados |
+
+---
+
+## Ordenamiento con `sort()`
+
+`sort()` ordena el array **in place**, por lo que modifica el original.
+
+```javascript
+const frutas = ["pera", "banana", "manzana"];
+
+frutas.sort();
+
+console.log(frutas);
+// ["banana", "manzana", "pera"]
+```
+
+### Ordenamiento numérico
+
+El orden por defecto convierte los elementos a strings y los compara según sus valores UTF-16.
+
+Por eso:
+
+```javascript
+const numeros = [2, 4, 10, 15, 22, 30];
+
+numeros.sort();
+
+console.log(numeros);
+// [10, 15, 2, 22, 30, 4]
+```
+
+No es el orden matemático esperado.
+
+Para ordenar números de forma ascendente:
+
+```javascript
+numeros.sort((a, b) => a - b);
+```
+
+Para orden descendente:
+
+```javascript
+numeros.sort((a, b) => b - a);
+```
+
+La función comparadora debe devolver:
+
+- un número negativo si `a` debe aparecer antes que `b`;
+- un número positivo si `a` debe aparecer después de `b`;
+- `0` si ambos se consideran equivalentes para el ordenamiento.
+
+### No asumir un algoritmo interno único
+
+La especificación define el comportamiento observable de `sort()`, pero no obliga a utilizar un único algoritmo concreto ni garantiza una complejidad temporal fija.
+
+Desde ECMAScript 2019 el ordenamiento debe ser **estable**: si dos elementos son equivalentes para la función comparadora, conservan entre sí su orden relativo previo.
+
+Por lo tanto, no debe estudiarse `sort()` como sinónimo de Timsort ni asignársele una complejidad fija como propiedad del lenguaje.
+
+### Ordenar sin modificar el original
+
+En JavaScript moderno existe `toSorted()`:
+
+```javascript
+const originales = [3, 1, 2];
+const ordenados = originales.toSorted((a, b) => a - b);
+
+console.log(originales); // [3, 1, 2]
+console.log(ordenados);  // [1, 2, 3]
+```
+
+También puede hacerse una copia antes de ordenar:
+
+```javascript
+const ordenados = [...originales].sort((a, b) => a - b);
+```
+
+---
+
+## Mutabilidad e inmutabilidad práctica
+
+Al trabajar con arrays conviene saber si una operación modifica la estructura original.
+
+### Habitualmente no mutan
+
+- `filter()`;
+- `find()`;
+- `findIndex()`;
+- `some()`;
+- `every()`;
+- `slice()`;
+- `concat()`;
+- `map()`.
+
+### Mutan
+
+- `push()`;
+- `pop()`;
+- `shift()`;
+- `unshift()`;
+- `fill()`;
+- `splice()`;
+- `sort()`.
+
+`forEach()` merece una distinción: el método no transforma por sí mismo el array ni devuelve uno nuevo, pero el callback puede realizar mutaciones explícitas.
+
+Conocer esta diferencia ayuda a evitar cambios accidentales de estado y será especialmente importante al trabajar posteriormente con componentes y estado de interfaz.
 
 # Funciones
 
@@ -1513,11 +2255,12 @@ El programa no controla el momento exacto en que ocurrirá la recolección.
 
 Quedaron anunciados o todavía requieren mayor desarrollo:
 
-- eventos;
+- selección y manipulación práctica del DOM;
+- propagación y objeto `Event`;
 - event loop y modelo de ejecución asíncrona;
 - promesas;
-- DOM;
-- consumo de APIs.
+- consumo de APIs;
+- TypeScript.
 
 Estas secciones se ampliarán cuando la cursada las desarrolle.
 
@@ -1556,6 +2299,23 @@ Esta distinción permite conservar la decisión práctica de la materia —traba
 ---
 
 # Referencias técnicas
+
+- MDN Web Docs — DOM: https://developer.mozilla.org/docs/Web/API/Document_Object_Model
+- MDN Web Docs — Events: https://developer.mozilla.org/docs/Learn_web_development/Core/Scripting/Events
+- MDN Web Docs — `addEventListener()`: https://developer.mozilla.org/docs/Web/API/EventTarget/addEventListener
+- MDN Web Docs — `try...catch`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/try...catch
+- MDN Web Docs — Array: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+- MDN Web Docs — `filter()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+- MDN Web Docs — `find()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+- MDN Web Docs — `findIndex()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
+- MDN Web Docs — `some()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+- MDN Web Docs — `every()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+- MDN Web Docs — `slice()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+- MDN Web Docs — `splice()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+- MDN Web Docs — `forEach()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+- MDN Web Docs — `map()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+- MDN Web Docs — `sort()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+- MDN Web Docs — `toSorted()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted
 
 - MDN Web Docs — Template literals: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals
 - MDN Web Docs — JSON: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON

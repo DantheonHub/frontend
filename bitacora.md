@@ -42,3 +42,22 @@ Una línea por clase real, en el orden en que se dictaron. El detalle técnico d
 
 - **Estado:** funciones y callbacks consolidados a nivel introductorio; asincronía iniciada. Quedan pendientes eventos, promesas y una explicación más profunda del modelo de ejecución.
 
+
+## Clase 4 — DOM, eventos, errores y arrays
+
+- **Contenido:**
+  - eventos y asociación de callbacks;
+  - estructuras de control y operador ternario;
+  - introducción al DOM;
+  - manejo de excepciones con `try`, `catch` y `finally`;
+  - arrays, índices, longitud y referencias;
+  - métodos `filter`, `find`, `findIndex`, `some`, `every`;
+  - métodos de modificación `push`, `pop`, `shift`, `unshift`, `fill` y `splice`;
+  - copia parcial con `slice`;
+  - recorrido con `forEach`;
+  - concatenación y ordenamiento con `sort`.
+
+- **Práctica:** creación y comparación de arrays, callbacks sobre colecciones, búsqueda y filtrado, inserción/eliminación de elementos y ordenamiento numérico.
+
+- **Estado:** arrays desarrollados con bastante profundidad; DOM, eventos y manejo de errores quedaron introducidos para retomarse en la práctica.
+
