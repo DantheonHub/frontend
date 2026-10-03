@@ -521,6 +521,161 @@ String(42);    // "42"
 Boolean(1);    // true
 ```
 
+## Template literals
+
+Los **template literals** son cadenas delimitadas por backticks (`` ` ``) que permiten interpolar expresiones y escribir texto en varias líneas.
+
+```javascript
+const nombre = "Marta";
+const edad = 35;
+
+console.log(`Nombre: ${nombre}. Edad: ${edad}.`);
+```
+
+La expresión incluida dentro de `${...}` se evalúa primero y su resultado se incorpora a la cadena.
+
+```javascript
+const a = 3;
+const b = 5;
+
+console.log(`Resultado: ${a + b}`); // "Resultado: 8"
+```
+
+En cambio:
+
+```javascript
+console.log(`${a} + ${b}`); // "3 + 5"
+```
+
+el operador `+` está fuera de la expresión interpolada y forma parte del texto literal.
+
+Los template literals también admiten saltos de línea directamente:
+
+```javascript
+const mensaje = `Primera línea
+Segunda línea`;
+```
+
+No debe entenderse que “todo lo que está dentro se convierte antes a string”. El texto literal forma una cadena, mientras que las expresiones `${...}` se evalúan como JavaScript y luego sus resultados se convierten según las reglas de interpolación.
+
+### Objetos dentro de un template literal
+
+Si se interpola directamente un objeto común:
+
+```javascript
+const persona = { nombre: "Ana" };
+
+console.log(`${persona}`);
+```
+
+la conversión a string suele producir:
+
+```text
+[object Object]
+```
+
+Esto ocurre porque se aplica la conversión ordinaria del objeto a texto. Para obtener una representación JSON puede utilizarse `JSON.stringify()`:
+
+```javascript
+console.log(JSON.stringify(persona));
+// '{"nombre":"Ana"}'
+```
+
+---
+
+# JSON
+
+## Qué es JSON
+
+**JSON (JavaScript Object Notation)** es un formato textual para representar e intercambiar datos estructurados.
+
+Aunque su sintaxis está inspirada en los objetos literales de JavaScript, **JSON no es un tipo de dato JavaScript ni es lo mismo que un objeto JavaScript**.
+
+Ejemplo JSON:
+
+```json
+{
+  "nombre": "Ana",
+  "edad": 35,
+  "activo": true
+}
+```
+
+Su naturaleza textual facilita el intercambio de información entre sistemas y lenguajes diferentes, razón por la que aparece con frecuencia en APIs web.
+
+## Objeto literal y JSON
+
+Un objeto literal JavaScript puede escribirse así:
+
+```javascript
+const persona = {
+  nombre: "Ana",
+  edad: 35
+};
+```
+
+Esto crea un objeto real dentro del programa.
+
+Una representación JSON equivalente sería texto:
+
+```json
+{
+  "nombre": "Ana",
+  "edad": 35
+}
+```
+
+La sintaxis se parece, pero sus reglas no son idénticas. Por ejemplo, en JSON los nombres de las propiedades deben escribirse entre comillas dobles.
+
+## `JSON.stringify()`
+
+`JSON.stringify()` serializa un valor JavaScript a una cadena en formato JSON cuando ese valor puede representarse mediante JSON.
+
+```javascript
+const persona = {
+  nombre: "Ana",
+  edad: 35
+};
+
+const texto = JSON.stringify(persona);
+
+console.log(typeof texto); // "string"
+console.log(texto);        // '{"nombre":"Ana","edad":35}'
+```
+
+No es correcto pensar que simplemente “pone comillas a todo”. La serialización respeta los tipos compatibles con JSON: los números continúan representándose como números, los booleanos como booleanos y las cadenas como cadenas.
+
+Además, no todo valor JavaScript tiene una representación JSON directa. Por ejemplo, propiedades cuyo valor es `undefined`, una función o un `Symbol` pueden omitirse durante la serialización.
+
+## `JSON.parse()`
+
+`JSON.parse()` realiza el camino inverso: analiza una cadena JSON válida y produce el valor JavaScript correspondiente.
+
+```javascript
+const texto = '{"nombre":"Ana","edad":35}';
+const persona = JSON.parse(texto);
+
+console.log(persona.nombre); // "Ana"
+console.log(typeof persona); // "object"
+```
+
+Por lo tanto:
+
+```text
+valor JavaScript
+      │
+      │ JSON.stringify()
+      ▼
+texto JSON
+      │
+      │ JSON.parse()
+      ▼
+valor JavaScript
+```
+
+Este mecanismo es especialmente importante cuando una aplicación recibe o envía información mediante APIs.
+
+
 ## ECMAScript, motor y entorno
 
 Conviene separar tres conceptos.
@@ -1001,6 +1156,41 @@ Las arrow functions tampoco pueden utilizarse como constructor con `new`.
 
 ---
 
+## Retorno implícito en funciones flecha
+
+Cuando una arrow function contiene una única expresión, puede omitir las llaves y la palabra `return`.
+
+```javascript
+const sumarDos = numero => numero + 2;
+
+console.log(sumarDos(5)); // 7
+```
+
+Es equivalente, en cuanto al valor retornado, a:
+
+```javascript
+const sumarDos = numero => {
+  return numero + 2;
+};
+```
+
+Cuando existe un solo parámetro también pueden omitirse sus paréntesis:
+
+```javascript
+const duplicar = numero => numero * 2;
+```
+
+Con cero parámetros o con más de uno, los paréntesis son necesarios:
+
+```javascript
+const obtenerValor = () => 10;
+const sumar = (a, b) => a + b;
+```
+
+La forma breve mejora la legibilidad cuando la operación es realmente simple; no constituye una obligación ni hace automáticamente mejor a una función.
+
+---
+
 # Callbacks
 
 Un **callback** es una función que se pasa a otra función para que esta pueda utilizarla.
@@ -1044,6 +1234,196 @@ ejecutar(() => {
 Los callbacks aparecen en eventos, métodos de arrays, temporizadores y APIs asincrónicas.
 
 Un callback **no es necesariamente asincrónico**: también puede ejecutarse inmediatamente de forma síncrona.
+
+La función que recibe una función como argumento o devuelve otra función se denomina habitualmente **función de orden superior** (*higher-order function*). El callback es la función que se entrega para ser utilizada.
+
+```javascript
+function saludar(nombre) {
+  return `Hola ${nombre}`;
+}
+
+function procesarNombre(nombre, callback) {
+  return callback(nombre);
+}
+
+console.log(procesarNombre("Ana", saludar));
+```
+
+Aquí:
+
+- `procesarNombre` es una función de orden superior porque recibe otra función;
+- `saludar` cumple el rol de callback;
+- `callback` es el parámetro que recibirá una función;
+- `saludar` es el argumento concreto entregado en la llamada.
+
+---
+
+# Declaraciones de funciones y hoisting
+
+Las **function declarations** pueden utilizarse antes de su posición textual en el archivo:
+
+```javascript
+saludar();
+
+function saludar() {
+  console.log("Hola");
+}
+```
+
+Este comportamiento suele explicarse mediante el concepto de **hoisting**.
+
+Hoisting es un modelo mental útil, pero no significa que el motor mueva físicamente líneas de código hacia arriba. Durante la preparación del contexto de ejecución, determinadas declaraciones quedan disponibles antes de que comience la ejecución de las instrucciones del cuerpo.
+
+## Declaraciones repetidas con el mismo nombre
+
+Declarar repetidamente funciones con el mismo nombre dentro del mismo ámbito es confuso y debe evitarse.
+
+```javascript
+function saludar() {
+  return "Hola";
+}
+
+function saludar(nombre) {
+  return `Hola ${nombre}`;
+}
+```
+
+JavaScript no implementa la sobrecarga tradicional de funciones basada únicamente en distintas listas de parámetros como lenguajes como C# o Java. En este caso las declaraciones comparten el mismo nombre y la declaración efectiva posterior puede reemplazar la anterior dentro de ese ámbito.
+
+Por eso no debe diseñarse una API JavaScript esperando que el motor elija automáticamente una implementación según la cantidad o tipo de argumentos.
+
+---
+
+# Asincronía
+
+## Idea general
+
+Una operación **asíncrona** permite iniciar trabajo cuyo resultado llegará más adelante sin bloquear necesariamente la continuación inmediata del flujo principal.
+
+Ejemplos habituales en frontend:
+
+- temporizadores;
+- eventos del usuario;
+- solicitudes HTTP;
+- lectura de determinados recursos.
+
+JavaScript ejecuta código sobre un modelo de ejecución coordinado con el entorno anfitrión. Las APIs del navegador o de Node.js pueden programar trabajo cuya continuación se ejecutará posteriormente.
+
+La asincronía no significa que cada tarea se ejecute simplemente “en paralelo” dentro del mismo hilo de JavaScript. Para comprender su orden real será necesario estudiar posteriormente el **event loop**, las colas de tareas y las promesas.
+
+## `setTimeout()`
+
+`setTimeout()` solicita ejecutar una función después de que haya transcurrido **como mínimo** una demora indicada.
+
+```javascript
+setTimeout(() => {
+  console.log("Pasaron al menos 3 segundos");
+}, 3000);
+
+console.log("Esto se ejecuta antes");
+```
+
+Salida esperable:
+
+```text
+Esto se ejecuta antes
+Pasaron al menos 3 segundos
+```
+
+Los `3000` representan milisegundos.
+
+La demora no garantiza un instante exacto. Significa que la función no debe ejecutarse antes de ese umbral; puede ejecutarse después si el entorno todavía está ocupado.
+
+## Callback en `setTimeout()`
+
+El primer argumento de `setTimeout()` es una función callback.
+
+```javascript
+function informar(nombre) {
+  console.log(`Hola ${nombre}`);
+}
+
+setTimeout(informar, 3000, "Ana");
+```
+
+Aquí:
+
+- `informar` es el callback;
+- `3000` es la demora;
+- `"Ana"` es un argumento que será entregado al callback cuando se ejecute.
+
+También puede definirse el callback directamente:
+
+```javascript
+setTimeout(() => {
+  console.log("Callback ejecutado");
+}, 3000);
+```
+
+## Orden de ejecución
+
+```javascript
+console.log("A");
+
+setTimeout(() => {
+  console.log("B");
+}, 1000);
+
+console.log("C");
+```
+
+El resultado normal será:
+
+```text
+A
+C
+B
+```
+
+Registrar el temporizador no detiene la ejecución de las instrucciones siguientes.
+
+Este modelo es fundamental para comprender posteriormente solicitudes HTTP, eventos, promesas y `async`/`await`.
+
+---
+
+# Scope léxico y modificación de bindings externos
+
+Una función puede acceder a bindings definidos en un ámbito exterior:
+
+```javascript
+let contador = 0;
+
+function incrementar() {
+  contador += 1;
+}
+
+incrementar();
+
+console.log(contador); // 1
+```
+
+La función no necesita retornar `contador` para que la reasignación sea observable afuera: está modificando el binding externo que se encuentra dentro de su alcance léxico.
+
+Esto debe distinguirse del pasaje de argumentos.
+
+```javascript
+let numero = 10;
+
+function incrementar(valor) {
+  valor += 1;
+}
+
+incrementar(numero);
+
+console.log(numero); // 10
+```
+
+Aquí el parámetro local `valor` recibe el valor primitivo `10`; modificar ese binding local no reasigna el binding exterior `numero`.
+
+Por lo tanto, son mecanismos distintos:
+
+- **capturar y modificar un binding externo** mediante scope léxico;
+- **recibir un argumento en un parámetro local**.
 
 ---
 
@@ -1131,13 +1511,13 @@ El programa no controla el momento exacto en que ocurrirá la recolección.
 
 # Temas abiertos de JavaScript
 
-Quedaron anunciados para continuar:
+Quedaron anunciados o todavía requieren mayor desarrollo:
 
-- comportamiento de `const` con objetos y otras estructuras mutables;
 - eventos;
-- profundización en funciones;
-- asincronía y promesas;
-- DOM.
+- event loop y modelo de ejecución asíncrona;
+- promesas;
+- DOM;
+- consumo de APIs.
 
 Estas secciones se ampliarán cuando la cursada las desarrolle.
 
@@ -1176,6 +1556,14 @@ Esta distinción permite conservar la decisión práctica de la materia —traba
 ---
 
 # Referencias técnicas
+
+- MDN Web Docs — Template literals: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals
+- MDN Web Docs — JSON: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON
+- MDN Web Docs — `JSON.stringify()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+- MDN Web Docs — `JSON.parse()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+- MDN Web Docs — Functions: https://developer.mozilla.org/docs/Web/JavaScript/Guide/Functions
+- MDN Web Docs — Hoisting: https://developer.mozilla.org/docs/Glossary/Hoisting
+- MDN Web Docs — `setTimeout()`: https://developer.mozilla.org/docs/Web/API/Window/setTimeout
 
 - MDN Web Docs — JavaScript Guide: https://developer.mozilla.org/docs/Web/JavaScript/Guide
 - MDN Web Docs — JavaScript execution model: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Execution_model

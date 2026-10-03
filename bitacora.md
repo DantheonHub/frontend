@@ -24,3 +24,21 @@ Una línea por clase real, en el orden en que se dictaron. El detalle técnico d
 - **Práctica:** ejecución con Node.js, declaraciones y reasignaciones, scope, acceso y modificación de objetos y comparación entre asignaciones de primitivos y objetos.
 
 - **Estado:** fundamentos de JavaScript iniciados; eventos y algunos comportamientos de `const` quedaron abiertos.
+
+## Clase 3 — JavaScript: JSON, funciones y asincronía
+
+- **Contenido:**
+  - template literals e interpolación;
+  - serialización con `JSON.stringify()` y recuperación con `JSON.parse()`;
+  - diferencia entre objetos literales y JSON;
+  - funciones, parámetros, argumentos y retornos;
+  - sintaxis abreviada de arrow functions;
+  - callbacks y funciones de orden superior;
+  - introducción al hoisting de declaraciones de funciones;
+  - asincronía y temporizadores con `setTimeout()`;
+  - acceso y modificación de variables de ámbitos externos.
+
+- **Práctica:** manipulación de objetos y JSON, funciones tradicionales y flecha, callbacks y seguimiento del orden de ejecución con temporizadores.
+
+- **Estado:** funciones y callbacks consolidados a nivel introductorio; asincronía iniciada. Quedan pendientes eventos, promesas y una explicación más profunda del modelo de ejecución.
+
