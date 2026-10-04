@@ -2565,55 +2565,824 @@ El ejercicio quedó **sin funcionar al cierre de la clase** y fue dejado pendien
 
 ---
 
-# Temas abiertos de JavaScript
+# Temas abiertos
 
 Quedaron anunciados o todavía requieren mayor desarrollo:
 
+### JavaScript
 - resolución del ejercicio integrador de módulos + DOM iniciado en la Clase 5;
 - propagación y objeto `Event`;
 - creación de nodos con la API DOM;
 - event loop y modelo de ejecución asíncrona;
 - promesas;
-- consumo de APIs;
+- consumo de APIs.
+
+### CSS
+- profundización en Flexbox;
+- CSS Grid;
+- diseño responsive;
+- media queries;
+- tipografía y otras propiedades visuales.
+
+### Próximos lenguajes/herramientas
 - TypeScript.
 
-Estas secciones se ampliarán cuando la cursada las desarrolle.
+Estas secciones se ampliarán cuando aparezcan en las clases siguientes.
 
 ---
 
-# Panorama de la cursada técnica
 
-La materia parte de los fundamentos de HTML y CSS para concentrarse posteriormente en JavaScript y Angular.
+# CSS
 
-Dentro de Angular se anticiparon temas como:
+## Qué es CSS
 
-- componentes;
-- comunicación entre componentes;
-- servicios;
-- inyección de dependencias;
-- enrutamiento;
-- directivas;
-- estructuras de control;
-- pipes;
-- formularios reactivos;
-- formularios basados en plantillas;
-- integración del frontend con un backend.
+**CSS (Cascading Style Sheets)** es el lenguaje utilizado para definir la presentación visual de documentos HTML.
 
-Estos conceptos se incorporarán a la biblioteca cuando sean desarrollados efectivamente por la cursada.
+Mientras HTML describe estructura y significado, CSS controla aspectos como:
 
-## Convención de Angular indicada por la cátedra
+- colores;
+- tipografía;
+- tamaños;
+- espaciado;
+- bordes;
+- fondos;
+- distribución de elementos;
+- adaptación a distintos tamaños de pantalla.
 
-La cátedra indicó trabajar con **Angular 17 o superior** y priorizar la sintaxis moderna.
+Una regla CSS tiene esta forma:
 
-Angular 17 introdujo la nueva sintaxis de control de flujo incorporada en las plantillas, con construcciones como `@if` y `@for`.
+```css
+selector {
+  propiedad: valor;
+}
+```
 
-Es importante distinguir este cambio de la arquitectura *standalone*: los componentes standalone existían antes de Angular 17 y los `NgModule` no desaparecieron en esa versión. Angular continúa soportando aplicaciones basadas en módulos, aunque el enfoque standalone es el estilo moderno y actualmente preferido para código nuevo.
+Por ejemplo:
 
-Esta distinción permite conservar la decisión práctica de la materia —trabajar con Angular moderno— sin convertir una simplificación oral en una regla histórica incorrecta.
+```css
+h1 {
+  color: crimson;
+}
+```
+
+- `h1` es el **selector**;
+- `color` es la **propiedad**;
+- `crimson` es el **valor**;
+- `color: crimson;` es una **declaración**.
+
+---
+
+## Formas de incorporar CSS
+
+### Hoja externa
+
+Es la forma habitual para proyectos mantenibles:
+
+```html
+<head>
+  <link rel="stylesheet" href="./styles/styles.css">
+</head>
+```
+
+Permite separar presentación y estructura, reutilizar estilos y mantenerlos desde un único archivo.
+
+### Hoja interna
+
+Puede escribirse CSS dentro de `<style>`:
+
+```html
+<head>
+  <style>
+    p {
+      color: blue;
+    }
+  </style>
+</head>
+```
+
+Es válida, aunque en proyectos mayores suele preferirse una hoja externa.
+
+### Estilos inline
+
+También puede utilizarse el atributo `style`:
+
+```html
+<p style="color: blue;">Texto</p>
+```
+
+Es válido, pero suele dificultar reutilización y mantenimiento cuando se usa como estrategia general.
+
+---
+
+# Selectores CSS
+
+## Selector universal
+
+```css
+* {
+  box-sizing: border-box;
+}
+```
+
+Selecciona todos los elementos.
+
+## Selector de tipo
+
+```css
+p {
+  color: blue;
+}
+```
+
+Selecciona todos los elementos de ese tipo.
+
+## Selector de clase
+
+HTML:
+
+```html
+<p class="destacado">Uno</p>
+<h2 class="destacado">Dos</h2>
+```
+
+CSS:
+
+```css
+.destacado {
+  color: crimson;
+}
+```
+
+Una clase puede aplicarse a múltiples elementos, incluso de distintos tipos.
+
+Un elemento puede pertenecer a varias clases:
+
+```html
+<p class="texto destacado">Contenido</p>
+```
+
+También pueden combinarse tipo y clase:
+
+```css
+p.destacado {
+  color: crimson;
+}
+```
+
+Esto selecciona únicamente párrafos que tengan la clase `destacado`.
+
+## Selector por ID
+
+```html
+<h1 id="titulo">Frontend</h1>
+```
+
+```css
+#titulo {
+  color: red;
+}
+```
+
+Un `id` debe ser único dentro del documento HTML. Aunque CSS pueda coincidir con más de un elemento si el HTML viola esa regla, no debe utilizarse el mismo `id` para agrupar elementos; para eso existen las clases.
+
+## Selector descendiente
+
+```css
+div p {
+  color: aquamarine;
+}
+```
+
+Selecciona cualquier `p` que sea descendiente de un `div`, no necesariamente hijo directo.
+
+## Agrupación de selectores
+
+```css
+div h2,
+div h3 {
+  color: brown;
+}
+```
+
+La coma permite aplicar el mismo bloque de declaraciones a varios selectores.
+
+---
+
+# Cascada y especificidad
+
+La palabra *cascading* de CSS hace referencia al algoritmo que resuelve qué declaración termina aplicándose cuando varias reglas compiten por la misma propiedad.
+
+No alcanza con decir simplemente que “CSS lee de arriba hacia abajo”. El navegador considera, entre otros factores:
+
+1. origen e importancia;
+2. especificidad;
+3. proximidad de ámbito cuando corresponde;
+4. orden de aparición.
+
+Para reglas normales del mismo origen y capa, un selector más específico suele prevalecer sobre uno menos específico.
+
+Ejemplo:
+
+```css
+h1 {
+  color: red;
+}
+
+#titulo {
+  color: blue;
+}
+```
+
+Si el `<h1>` tiene `id="titulo"`, será azul porque el selector por ID tiene mayor especificidad.
+
+Si dos declaraciones aplicables poseen la misma especificidad, la que aparece después prevalece:
+
+```css
+.texto {
+  color: red;
+}
+
+.otra {
+  color: blue;
+}
+```
+
+Si un elemento tiene ambas clases, el resultado será azul.
+
+## Especificidad básica
+
+Como modelo introductorio:
+
+```text
+ID > clase / pseudo-clase > tipo / pseudo-elemento
+```
+
+Sin embargo, la cascada completa también considera origen, capas, `!important`, estilos inline y otros factores.
+
+## `!important`
+
+```css
+p {
+  color: red !important;
+}
+```
+
+`!important` altera la prioridad de la declaración. No forma parte del cálculo de especificidad, aunque interactúa con la cascada.
+
+Debe evitarse como solución habitual para “ganarle” a otros selectores porque dificulta el mantenimiento. Es preferible comprender y controlar la cascada y la especificidad.
+
+---
+
+# Pseudo-clases y pseudo-elementos
+
+## Pseudo-clases
+
+Una pseudo-clase selecciona un elemento según un **estado o condición**.
+
+```css
+a:hover {
+  color: red;
+}
+```
+
+`:hover` se activa mientras el puntero está sobre el elemento.
+
+Otros ejemplos:
+
+```css
+a:visited { }
+input:focus { }
+button:disabled { }
+li:first-child { }
+```
+
+Se escriben normalmente con un solo `:`.
+
+## Pseudo-elementos
+
+Un pseudo-elemento representa una parte específica o una abstracción del contenido de un elemento.
+
+```css
+p::first-letter {
+  font-size: 2rem;
+}
+```
+
+También:
+
+```css
+p::before {
+  content: "→ ";
+}
+
+p::after {
+  content: " ←";
+}
+```
+
+En sintaxis moderna se escriben normalmente con `::`.
+
+La distinción conceptual es:
+
+- pseudo-clase: estado o condición del elemento;
+- pseudo-elemento: parte o representación especial del elemento.
+
+---
+
+# Colores en CSS
+
+CSS admite múltiples notaciones.
+
+## Palabras clave
+
+```css
+color: red;
+color: rebeccapurple;
+```
+
+## Hexadecimal
+
+Forma completa:
+
+```css
+color: #ff0000;
+```
+
+Cada par representa un canal:
+
+```text
+# RR GG BB
+```
+
+Cada canal va de `00` a `ff`.
+
+Forma abreviada:
+
+```css
+color: #f00;
+```
+
+equivale a:
+
+```css
+color: #ff0000;
+```
+
+La forma corta no representa una “parte entera y una decimal”: cada dígito se duplica.
+
+Por ejemplo:
+
+```text
+#abc → #aabbcc
+```
+
+## `rgb()`
+
+```css
+color: rgb(255, 0, 0);
+```
+
+En la sintaxis tradicional, cada canal utiliza valores entre 0 y 255.
+
+## Canal alfa
+
+Puede expresarse transparencia:
+
+```css
+background-color: rgb(255 0 0 / 0.5);
+```
+
+La sintaxis histórica `rgba(255, 0, 0, 0.5)` continúa siendo reconocida por los navegadores.
+
+---
+
+# Bordes
+
+La forma abreviada de `border` permite definir ancho, estilo y color:
+
+```css
+.caja {
+  border: 5px solid red;
+}
+```
+
+También pueden definirse por separado:
+
+```css
+.caja {
+  border-width: 5px;
+  border-style: solid;
+  border-color: red;
+}
+```
+
+Algunos estilos posibles:
+
+```text
+solid
+dotted
+dashed
+double
+inset
+outset
+```
+
+## `border-radius`
+
+```css
+.caja {
+  border-radius: 12px;
+}
+```
+
+Redondea las esquinas.
+
+En una caja cuadrada:
+
+```css
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+```
+
+puede producir una forma circular.
+
+---
+
+# Unidades de medida
+
+## Longitudes absolutas
+
+CSS define unidades absolutas como:
+
+```text
+px
+cm
+mm
+in
+pt
+pc
+```
+
+En CSS, `px` es una **unidad CSS de referencia**, no debe entenderse literalmente como “un píxel físico de la pantalla”.
+
+Las unidades físicas (`cm`, `mm`, `in`) tampoco garantizan una medida física exacta en todos los dispositivos de pantalla.
+
+Por eso, “absoluta” en CSS significa que la unidad mantiene una relación fija dentro del sistema de unidades CSS, no que siempre mida físicamente lo mismo en cualquier dispositivo.
+
+## `em`
+
+`em` es relativa al tamaño de fuente.
+
+Para propiedades distintas de `font-size`, `1em` corresponde al `font-size` calculado del propio elemento.
+
+```css
+.caja {
+  font-size: 20px;
+  padding: 1em; /* 20px */
+}
+```
+
+Cuando `em` se utiliza para calcular `font-size`, la referencia es el tamaño de fuente del elemento padre.
+
+## `rem`
+
+`rem` es relativa al `font-size` del elemento raíz, normalmente `<html>`.
+
+```css
+html {
+  font-size: 16px;
+}
+
+p {
+  margin: 2rem; /* 32px */
+}
+```
+
+El valor habitual por defecto de muchos navegadores es 16px, pero no debe asumirse como una constante inalterable: puede cambiar por estilos o preferencias del usuario.
+
+## Porcentajes
+
+El significado de `%` depende de la propiedad.
+
+Ejemplo:
+
+```css
+.contenedor {
+  width: 800px;
+}
+
+.hijo {
+  width: 50%;
+}
+```
+
+El hijo tendrá la mitad del ancho de su bloque contenedor según las reglas de esa propiedad.
+
+No debe generalizarse que todo porcentaje se calcula siempre contra “el tamaño del padre”; la referencia exacta depende de cada propiedad.
+
+## Responsive design
+
+Las unidades relativas ayudan a construir interfaces adaptables, pero utilizar `px` no es automáticamente incorrecto.
+
+Una interfaz responsive combina adecuadamente:
+
+- unidades relativas;
+- límites como `min-width` y `max-width`;
+- Flexbox y Grid;
+- media queries;
+- tamaños intrínsecos;
+- decisiones de diseño según el componente.
+
+---
+
+# Fondos
+
+## Color de fondo
+
+```css
+article {
+  background-color: rgb(255, 0, 0);
+}
+```
+
+## Imagen de fondo
+
+```css
+article {
+  background-image: url("../img/logo.png");
+}
+```
+
+La URL se resuelve respecto del archivo CSS que contiene la declaración.
+
+## Repetición
+
+```css
+article {
+  background-repeat: no-repeat;
+}
+```
+
+También existen valores como `repeat-x` y `repeat-y`.
+
+## Posición
+
+```css
+article {
+  background-position: center;
+}
+```
+
+## Tamaño
+
+```css
+article {
+  background-size: 200px 200px;
+}
+```
+
+Valores como `cover` y `contain` son especialmente frecuentes para fondos adaptables.
+
+## Shorthand `background`
+
+Varias propiedades pueden combinarse:
+
+```css
+article {
+  background:
+    red
+    url("../img/logo.png")
+    no-repeat
+    center / 200px 200px;
+}
+```
+
+La barra `/` separa la posición del tamaño en esta forma abreviada.
+
+---
+
+# Espaciado: `margin` y `padding`
+
+## `margin`
+
+`margin` crea espacio por fuera del borde.
+
+```css
+.caja {
+  margin: 10px;
+}
+```
+
+### Cuatro valores
+
+```css
+margin: 10px 20px 30px 40px;
+```
+
+Orden:
+
+```text
+arriba → derecha → abajo → izquierda
+```
+
+### Tres valores
+
+```css
+margin: 10px 20px 30px;
+```
+
+equivale a:
+
+```text
+arriba | izquierda-derecha | abajo
+```
+
+### Dos valores
+
+```css
+margin: 10px 20px;
+```
+
+equivale a:
+
+```text
+vertical | horizontal
+```
+
+### Un valor
+
+```css
+margin: 10px;
+```
+
+se aplica a los cuatro lados.
+
+## `padding`
+
+`padding` crea espacio entre el contenido y el borde:
+
+```css
+.caja {
+  padding: 20px;
+}
+```
+
+La sintaxis abreviada de 1, 2, 3 o 4 valores sigue la misma lógica que `margin`.
+
+---
+
+# Overflow
+
+`overflow` controla qué ocurre cuando el contenido excede la caja disponible.
+
+```css
+.caja {
+  width: 100px;
+  overflow: visible;
+}
+```
+
+Valores comunes:
+
+```css
+overflow: visible;
+overflow: hidden;
+overflow: scroll;
+overflow: auto;
+```
+
+- `visible`: el contenido puede desbordar;
+- `hidden`: el excedente se recorta;
+- `scroll`: muestra mecanismos de desplazamiento;
+- `auto`: el navegador agrega scroll cuando resulta necesario.
+
+---
+
+# Box model
+
+Todo elemento visual se representa mediante cajas compuestas por:
+
+```text
+margin
+└── border
+    └── padding
+        └── content
+```
+
+El tamaño final depende de estas capas y de `box-sizing`.
+
+## `content-box`
+
+Es el valor inicial de `box-sizing`.
+
+```css
+.caja {
+  box-sizing: content-box;
+  width: 150px;
+  padding: 20px;
+  border: 5px solid black;
+}
+```
+
+Los `150px` corresponden solamente al área de contenido.
+
+El ancho exterior, sin contar margen, será:
+
+```text
+150
++ 20 + 20   padding
++ 5 + 5     border
+= 200px
+```
+
+## `border-box`
+
+```css
+.caja {
+  box-sizing: border-box;
+  width: 150px;
+  padding: 20px;
+  border: 5px solid black;
+}
+```
+
+Los `150px` incluyen contenido, padding y borde.
+
+Por esa razón es muy común encontrar:
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+```
+
+como normalización inicial de un proyecto.
+
+---
+
+# Introducción a Flexbox y Grid
+
+La clase presentó ambos modelos de layout solo a nivel conceptual.
+
+## Flexbox
+
+Flexbox es un modelo de layout **unidimensional**: trabaja principalmente sobre un eje a la vez.
+
+```css
+.contenedor {
+  display: flex;
+  gap: 20px;
+}
+```
+
+Puede distribuir, alinear y dimensionar elementos a lo largo del eje principal y controlar su alineación en el eje transversal.
+
+Decir que es “unidimensional” no significa que solo pueda mover elementos horizontal *o* verticalmente en sentido absoluto; significa que su modelo de distribución principal organiza una dimensión a la vez.
+
+## Grid
+
+CSS Grid es un modelo de layout **bidimensional** pensado para trabajar simultáneamente con filas y columnas.
+
+```css
+.contenedor {
+  display: grid;
+}
+```
+
+Flexbox y Grid no compiten necesariamente: suelen combinarse según las necesidades del layout.
+
+## `gap`
+
+`gap` define separación entre filas y/o columnas de un contenedor compatible:
+
+```css
+.contenedor {
+  display: flex;
+  gap: 20px;
+}
+```
+
+No agrega margen exterior al contenedor; controla el espacio entre los ítems.
 
 ---
 
 # Referencias técnicas
+
+- MDN Web Docs — CSS: https://developer.mozilla.org/docs/Web/CSS
+- MDN Web Docs — CSS selectors: https://developer.mozilla.org/docs/Web/CSS/CSS_selectors
+- MDN Web Docs — Cascade: https://developer.mozilla.org/docs/Web/CSS/CSS_cascade/Cascade
+- MDN Web Docs — Specificity: https://developer.mozilla.org/docs/Web/CSS/CSS_cascade/Specificity
+- MDN Web Docs — CSS values and units: https://developer.mozilla.org/docs/Learn_web_development/Core/Styling_basics/Values_and_units
+- MDN Web Docs — Box model: https://developer.mozilla.org/docs/Learn_web_development/Core/Styling_basics/Box_model
+- MDN Web Docs — `box-sizing`: https://developer.mozilla.org/docs/Web/CSS/box-sizing
+- MDN Web Docs — Backgrounds and borders: https://developer.mozilla.org/docs/Web/CSS/CSS_backgrounds_and_borders
+- MDN Web Docs — Flexbox: https://developer.mozilla.org/docs/Web/CSS/CSS_flexible_box_layout
+- MDN Web Docs — Grid: https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout
 
 - MDN Web Docs — `<script>`: https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/script
 - MDN Web Docs — JavaScript modules: https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules

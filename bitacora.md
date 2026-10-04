@@ -80,4 +80,24 @@ Una línea por clase real, en el orden en que se dictaron. El detalle técnico d
 
 - **Estado:** práctica de DOM y eventos desarrollada; módulos introducidos. El ejercicio integrador final de módulos + eventos quedó pendiente de resolución.
 
+## Clase 6 — Fundamentos de CSS
+
+- **Contenido:**
+  - estructura de reglas CSS;
+  - CSS externo, interno e inline;
+  - selectores universal, de tipo, clase, ID, descendientes y agrupados;
+  - cascada y especificidad;
+  - pseudo-clases y pseudo-elementos;
+  - representación de colores;
+  - bordes y `border-radius`;
+  - unidades absolutas y relativas (`px`, `em`, `rem`, `%`);
+  - fondos;
+  - `margin`, `padding` y `overflow`;
+  - box model y `box-sizing`;
+  - introducción conceptual a Flexbox, Grid y `gap`.
+
+- **Práctica:** aplicación y combinación de selectores, resolución de conflictos por especificidad, estilos de borde/fondo, medidas y comparación entre `content-box` y `border-box`.
+
+- **Estado:** fundamentos de CSS iniciados y box model desarrollado; Flexbox y Grid quedaron introducidos para profundizar más adelante.
+
 
