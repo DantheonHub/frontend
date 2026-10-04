@@ -2251,12 +2251,327 @@ El programa no controla el momento exacto en que ocurrirá la recolección.
 
 ---
 
+
+# Integración de HTML, CSS y JavaScript
+
+Una aplicación frontend suele separar responsabilidades entre distintos archivos:
+
+```text
+proyecto/
+├── index.html
+├── styles/
+│   └── styles.css
+└── scripts/
+    └── script.js
+```
+
+La separación no es una restricción técnica absoluta, pero mejora la organización, reutilización y mantenimiento.
+
+## Vincular CSS
+
+Una hoja de estilos externa se vincula normalmente desde `<head>`:
+
+```html
+<link rel="stylesheet" href="./styles/styles.css">
+```
+
+## Vincular JavaScript
+
+Un script externo clásico puede cargarse con:
+
+```html
+<script src="./scripts/script.js"></script>
+```
+
+Colocarlo cerca del final de `<body>` es una estrategia tradicional para ejecutar el script después de que el HTML principal ya haya sido analizado. También pueden utilizarse `defer` o módulos:
+
+```html
+<script defer src="./scripts/script.js"></script>
+```
+
+```html
+<script type="module" src="./scripts/main.js"></script>
+```
+
+Los scripts de tipo módulo se procesan de forma diferida respecto del análisis del HTML.
+
+---
+
+# Manipulación práctica del DOM
+
+## Seleccionar por `id`
+
+```html
+<p id="mensaje">Texto original</p>
+```
+
+```javascript
+const mensaje = document.getElementById("mensaje");
+```
+
+El `id` debe identificar de forma única a un elemento dentro del documento.
+
+## `innerText`
+
+```javascript
+mensaje.innerText = "Texto modificado";
+```
+
+Si se asigna una cadena que contiene etiquetas, se muestran como texto.
+
+## `innerHTML`
+
+```javascript
+const contenedor = document.getElementById("contenedor");
+
+contenedor.innerHTML = "<strong>Hola</strong>";
+```
+
+En este caso la cadena se interpreta como marcado HTML.
+
+### Precaución
+
+No debe insertarse con `innerHTML` contenido externo o proporcionado por usuarios sin tratamiento adecuado. Interpretar contenido no confiable como HTML puede introducir vulnerabilidades XSS.
+
+---
+
+# Eventos en la práctica
+
+## Manejadores inline
+
+```html
+<button onclick="cambiarTexto()">Cambiar texto</button>
+```
+
+```javascript
+function cambiarTexto() {
+  const mensaje = document.getElementById("mensaje");
+  mensaje.innerText = "Nuevo texto";
+}
+```
+
+Esta forma permite visualizar el mecanismo evento → función, aunque mezcla comportamiento con marcado.
+
+## `addEventListener()`
+
+```html
+<button id="btnCambiar">Cambiar texto</button>
+```
+
+```javascript
+const boton = document.getElementById("btnCambiar");
+
+boton.addEventListener("click", () => {
+  console.log("Se hizo clic");
+});
+```
+
+El tipo de evento es `"click"`, no `"onclick"`.
+
+## Eventos usados en la clase
+
+```text
+click
+keydown
+change
+```
+
+Para reaccionar a cada modificación de texto de un `<input>`, el evento `input` suele resultar más específico que `keydown`.
+
+---
+
+# Formularios y valores
+
+## Asociación entre `label` e `input`
+
+```html
+<label for="nombre">Nombre</label>
+<input id="nombre" type="text">
+```
+
+El atributo `for` vincula la etiqueta con el control cuyo `id` coincide.
+
+## Propiedad `value`
+
+```html
+<select id="color">
+  <option value="red">Rojo</option>
+  <option value="blue">Azul</option>
+  <option value="green">Verde</option>
+</select>
+```
+
+```javascript
+const selector = document.getElementById("color");
+
+console.log(selector.value);
+```
+
+Ese valor puede utilizarse en una estructura de control como `switch`.
+
+---
+
+# Modificación de estilos desde JavaScript
+
+```javascript
+const entrada = document.getElementById("entrada");
+
+entrada.style.color = "red";
+entrada.style.backgroundColor = "black";
+entrada.style.fontWeight = "bold";
+```
+
+También existe `style.cssText`, pero para aplicaciones mantenibles suele ser preferible definir estilos en CSS y alternar clases desde JavaScript:
+
+```javascript
+entrada.classList.add("destacado");
+```
+
+---
+
+# Construcción dinámica de contenido
+
+```javascript
+const compras = ["carne", "ensalada", "bebida", "postre"];
+
+let items = "";
+
+for (let i = 0; i < compras.length; i++) {
+  items += `<li>${compras[i]}</li>`;
+}
+
+document.getElementById("lista").innerHTML = items;
+```
+
+Esta técnica ilustra cómo convertir datos en marcado. Más adelante también puede utilizarse la API DOM (`createElement`, `append`, etc.) para crear nodos directamente.
+
+---
+
+# Temporizadores aplicados a iteraciones
+
+Programar varios `setTimeout()` dentro de un ciclo no hace que una iteración espere a la anterior.
+
+Para escalonar acciones puede calcularse la demora con el índice:
+
+```javascript
+const elementos = ["A", "B", "C"];
+
+elementos.forEach((elemento, indice) => {
+  setTimeout(() => {
+    console.log(elemento);
+  }, indice * 1000);
+});
+```
+
+Esto programa ejecuciones aproximadamente en 0 ms, 1000 ms y 2000 ms.
+
+---
+
+# Módulos de JavaScript
+
+Los **ECMAScript Modules (ESM)** permiten dividir el programa en archivos con responsabilidades separadas y compartir explícitamente determinadas partes.
+
+## Exportaciones nombradas
+
+```javascript
+export const html = {
+  titulo: "HTML",
+  descripcion: "Lenguaje de marcado"
+};
+
+export const css = {
+  titulo: "CSS",
+  descripcion: "Lenguaje de estilos"
+};
+```
+
+También puede exportarse al final:
+
+```javascript
+const html = { titulo: "HTML" };
+const css = { titulo: "CSS" };
+
+export { html, css };
+```
+
+## Importaciones nombradas
+
+```javascript
+import { html, css } from "./lenguajes.js";
+```
+
+## Cargar un módulo desde HTML
+
+```html
+<script type="module" src="./scripts/main.js"></script>
+```
+
+Los módulos:
+
+- poseen su propio ámbito;
+- utilizan modo estricto automáticamente;
+- admiten `import` y `export`;
+- se ejecutan de forma diferida respecto del análisis HTML;
+- no exponen automáticamente sus variables y funciones como globales.
+
+Esto es relevante al combinar módulos con manejadores inline, porque una función interna del módulo no queda disponible automáticamente para `onclick="..."`.
+
+---
+
+# Selección con `querySelectorAll()`
+
+`document.querySelectorAll()` recibe un selector CSS y devuelve una `NodeList` estática.
+
+```javascript
+const items = document.querySelectorAll("#lenguajes li");
+```
+
+Para seleccionar solo hijos directos:
+
+```javascript
+const items = document.querySelectorAll("#lenguajes > li");
+```
+
+Una `NodeList` no es un `Array`, aunque puede recorrerse con `forEach()`:
+
+```javascript
+items.forEach(item => {
+  item.addEventListener("click", () => {
+    console.log(item.innerText);
+  });
+});
+```
+
+Si se necesita convertirla:
+
+```javascript
+const arrayItems = Array.from(items);
+```
+
+---
+
+# Ejercicio integrador de DOM y módulos
+
+La clase combinó:
+
+1. datos definidos como objetos en un módulo;
+2. exportaciones e importaciones;
+3. selección de varios elementos mediante `querySelectorAll()`;
+4. recorrido con `forEach()`;
+5. asociación prevista de eventos de clic;
+6. actualización de título, subtítulo y descripción en el DOM.
+
+El ejercicio quedó **sin funcionar al cierre de la clase** y fue dejado pendiente para la siguiente. No se incorpora una solución atribuida a la cursada hasta que aparezca en la clase posterior.
+
+---
+
 # Temas abiertos de JavaScript
 
 Quedaron anunciados o todavía requieren mayor desarrollo:
 
-- selección y manipulación práctica del DOM;
+- resolución del ejercicio integrador de módulos + DOM iniciado en la Clase 5;
 - propagación y objeto `Event`;
+- creación de nodos con la API DOM;
 - event loop y modelo de ejecución asíncrona;
 - promesas;
 - consumo de APIs;
@@ -2299,6 +2614,16 @@ Esta distinción permite conservar la decisión práctica de la materia —traba
 ---
 
 # Referencias técnicas
+
+- MDN Web Docs — `<script>`: https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/script
+- MDN Web Docs — JavaScript modules: https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules
+- MDN Web Docs — `getElementById()`: https://developer.mozilla.org/docs/Web/API/Document/getElementById
+- MDN Web Docs — `querySelectorAll()`: https://developer.mozilla.org/docs/Web/API/Document/querySelectorAll
+- MDN Web Docs — `NodeList`: https://developer.mozilla.org/docs/Web/API/NodeList
+- MDN Web Docs — `innerText`: https://developer.mozilla.org/docs/Web/API/HTMLElement/innerText
+- MDN Web Docs — `innerHTML`: https://developer.mozilla.org/docs/Web/API/Element/innerHTML
+- MDN Web Docs — `classList`: https://developer.mozilla.org/docs/Web/API/Element/classList
+- MDN Web Docs — `<label>`: https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/label
 
 - MDN Web Docs — DOM: https://developer.mozilla.org/docs/Web/API/Document_Object_Model
 - MDN Web Docs — Events: https://developer.mozilla.org/docs/Learn_web_development/Core/Scripting/Events

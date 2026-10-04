@@ -61,3 +61,23 @@ Una línea por clase real, en el orden en que se dictaron. El detalle técnico d
 
 - **Estado:** arrays desarrollados con bastante profundidad; DOM, eventos y manejo de errores quedaron introducidos para retomarse en la práctica.
 
+## Clase 5 — DOM, eventos y módulos JavaScript
+
+- **Contenido:**
+  - vinculación de HTML con archivos CSS y JavaScript;
+  - selección con `getElementById`;
+  - modificación con `innerText` e `innerHTML`;
+  - eventos `click`, `keydown` y `change`;
+  - asociación desde HTML y mediante `addEventListener`;
+  - lectura de valores de formularios;
+  - modificación dinámica de estilos;
+  - generación de contenido HTML desde arrays;
+  - `setTimeout` para escalonar ejecuciones;
+  - introducción a módulos con `export`, `import` y `type="module"`;
+  - selección múltiple con `querySelectorAll` y recorrido de `NodeList`.
+
+- **Práctica:** interacción entre controles HTML y JavaScript, modificación del DOM, construcción de listas y organización del código en módulos.
+
+- **Estado:** práctica de DOM y eventos desarrollada; módulos introducidos. El ejercicio integrador final de módulos + eventos quedó pendiente de resolución.
+
+
