@@ -100,4 +100,22 @@ Una línea por clase real, en el orden en que se dictaron. El detalle técnico d
 
 - **Estado:** fundamentos de CSS iniciados y box model desarrollado; Flexbox y Grid quedaron introducidos para profundizar más adelante.
 
+## Clase 7 — CSS: layout, animaciones y responsive
 
+- **Contenido:**
+  - propiedades de texto y tipografía;
+  - estados de enlaces mediante pseudo-clases;
+  - estilos de tablas y `nth-child`;
+  - `display: block`, `inline` e `inline-block`;
+  - posicionamiento `static`, `relative`, `absolute`, `fixed` y `sticky`;
+  - uso introductorio de `float`;
+  - centrado horizontal;
+  - pseudo-elementos `first-letter`, `before` y `after`;
+  - animaciones con `@keyframes`;
+  - transiciones;
+  - CSS Grid, `fr`, `grid-template-areas` y `grid-area`;
+  - responsive design mediante media queries.
+
+- **Práctica:** modificación del flujo y posicionamiento, creación de animaciones/transiciones y construcción de una grilla que cambia su distribución según el ancho disponible.
+
+- **Estado:** bloque principal de CSS completado a nivel introductorio; Grid y responsive fueron abordados de forma acelerada y quedan como temas para reforzar.

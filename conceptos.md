@@ -2565,6 +2565,701 @@ El ejercicio quedó **sin funcionar al cierre de la clase** y fue dejado pendien
 
 ---
 
+
+# Texto y tipografía en CSS
+
+## Alineación
+
+`text-align` controla la alineación horizontal del contenido inline dentro de un bloque.
+
+```css
+p {
+  text-align: center;
+}
+```
+
+Valores frecuentes:
+
+```css
+text-align: left;
+text-align: right;
+text-align: center;
+text-align: justify;
+```
+
+`justify` distribuye el texto para intentar alinear ambos bordes del bloque.
+
+## Decoración de texto
+
+```css
+a {
+  text-decoration: none;
+}
+```
+
+También pueden utilizarse valores como:
+
+```css
+text-decoration: underline;
+text-decoration: line-through;
+```
+
+## Sombra de texto
+
+```css
+h1 {
+  text-shadow: 4px 6px 8px rgb(0 0 0 / 0.4);
+}
+```
+
+La forma básica es:
+
+```text
+desplazamiento-x
+desplazamiento-y
+desenfoque
+color
+```
+
+El tercer valor no desplaza la sombra: controla su radio de desenfoque.
+
+## Familia tipográfica
+
+```css
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+Conviene indicar una lista de fuentes de respaldo.
+
+También pueden utilizarse fuentes externas, por ejemplo mediante `@import` o mediante enlaces en HTML.
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+```
+
+En aplicaciones reales debe considerarse además el costo de red, la privacidad, el rendimiento y la estrategia de carga de fuentes.
+
+---
+
+# Estados de enlaces
+
+Los enlaces pueden recibir estilos según distintas pseudo-clases.
+
+```css
+a:link {
+  color: brown;
+}
+
+a:visited {
+  color: gray;
+}
+
+a:hover {
+  color: blue;
+}
+
+a:active {
+  color: red;
+}
+```
+
+Significado:
+
+- `:link`: enlace todavía no visitado;
+- `:visited`: enlace visitado;
+- `:hover`: puntero sobre el enlace;
+- `:active`: enlace durante su activación, por ejemplo mientras se mantiene presionado el botón del mouse.
+
+No debe confundirse `:active` con un estado permanente de selección.
+
+---
+
+# Tablas y CSS
+
+HTML proporciona elementos semánticos para tablas:
+
+```html
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Documento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ana</td>
+      <td>123</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+Los elementos básicos son:
+
+- `table`: tabla;
+- `tr`: fila;
+- `th`: celda de encabezado;
+- `td`: celda de datos.
+
+## Bordes
+
+```css
+table,
+th,
+td {
+  border: 1px solid #777;
+}
+```
+
+Para unificar bordes contiguos:
+
+```css
+table {
+  border-collapse: collapse;
+}
+```
+
+## Filas alternadas con `:nth-child()`
+
+```css
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+```
+
+También:
+
+```css
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+```
+
+Puede seleccionarse una posición concreta:
+
+```css
+tr:nth-child(4) {
+  background-color: red;
+}
+```
+
+`nth-child()` evalúa la posición del elemento entre sus hermanos.
+
+---
+
+# `display` y flujo normal
+
+La propiedad `display` define cómo participa una caja en el layout y, según el valor, cómo se distribuyen sus hijos.
+
+## `block`
+
+```css
+.elemento {
+  display: block;
+}
+```
+
+Una caja block participa normalmente en el flujo ocupando el espacio horizontal disponible de su contenedor.
+
+Elementos como `div` y `p` suelen tener comportamiento block por defecto.
+
+## `inline`
+
+```css
+.elemento {
+  display: inline;
+}
+```
+
+Las cajas inline fluyen junto con el texto y no generan un salto de línea antes y después.
+
+Ejemplos habituales de elementos inline son `span` y `a`.
+
+No debe memorizarse una lista rígida de etiquetas: CSS puede cambiar el `display` de cualquier elemento.
+
+## `inline-block`
+
+```css
+.elemento {
+  display: inline-block;
+}
+```
+
+Permite que la caja participe como inline hacia afuera, pero conserve un comportamiento interno similar a una caja de bloque.
+
+Esto permite asignar cómodamente:
+
+```css
+width
+height
+padding
+margin
+```
+
+sin forzar un salto de línea como con `display: block`.
+
+## Cambiar el comportamiento por defecto
+
+```css
+div {
+  display: inline;
+}
+
+span {
+  display: block;
+}
+```
+
+La presentación inicial de una etiqueta no es una propiedad inmutable del HTML.
+
+---
+
+# Posicionamiento
+
+## `static`
+
+```css
+.elemento {
+  position: static;
+}
+```
+
+Es el valor inicial. El elemento permanece en el flujo normal y los offsets como `top` o `left` no se aplican.
+
+## `relative`
+
+```css
+.elemento {
+  position: relative;
+  top: 20px;
+  left: 30px;
+}
+```
+
+El elemento conserva su espacio original en el flujo, pero su caja renderizada se desplaza respecto de su posición normal.
+
+Por eso puede llegar a superponerse visualmente con otros elementos.
+
+## `absolute`
+
+```css
+.padre {
+  position: relative;
+}
+
+.hijo {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+```
+
+Un elemento `absolute` sale del flujo normal.
+
+Se posiciona respecto de su **bloque contenedor**, que normalmente será el ancestro más cercano cuyo `position` no sea `static`.
+
+Si no existe ese ancestro, utiliza el bloque contenedor inicial.
+
+Por eso es habitual establecer:
+
+```css
+.padre {
+  position: relative;
+}
+```
+
+cuando se quiere que un hijo absoluto tome al padre como referencia.
+
+## `fixed`
+
+```css
+.boton-flotante {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+```
+
+Normalmente se posiciona respecto del viewport y permanece en esa ubicación visual durante el scroll.
+
+Es útil para elementos como:
+
+- botones flotantes;
+- accesos persistentes;
+- algunas barras de interfaz.
+
+Existen casos en los que ciertas propiedades de ancestros —como transformaciones— pueden cambiar el bloque contenedor efectivo.
+
+## `sticky`
+
+```css
+.encabezado {
+  position: sticky;
+  top: 0;
+}
+```
+
+`sticky` participa inicialmente en el flujo como un elemento relativo y, al alcanzar el umbral configurado, queda adherido dentro de los límites de su contenedor de scroll.
+
+Para el eje correspondiente necesita un valor como `top`, `bottom`, etc.; sin un umbral no aparece el comportamiento sticky esperado.
+
+---
+
+# `float`
+
+`float` desplaza una caja hacia un lado y permite que el contenido inline fluya alrededor.
+
+```css
+img {
+  float: left;
+  margin-right: 1rem;
+}
+```
+
+Históricamente se utilizó para construir layouts completos, pero hoy Flexbox y Grid son herramientas más apropiadas para la mayoría de los layouts generales.
+
+`float` sigue siendo útil para casos como imágenes acompañadas de texto.
+
+---
+
+# Centrado horizontal clásico
+
+Para centrar horizontalmente una caja block con ancho limitado:
+
+```css
+.caja {
+  width: 600px;
+  margin: 0 auto;
+}
+```
+
+Los márgenes automáticos izquierdo y derecho absorben el espacio disponible.
+
+Esto centra la **caja**, no necesariamente su contenido textual.
+
+Para centrar texto dentro:
+
+```css
+.caja {
+  text-align: center;
+}
+```
+
+---
+
+# Pseudo-elementos de contenido
+
+## `::first-letter`
+
+```css
+p::first-letter {
+  font-size: 3rem;
+  color: crimson;
+}
+```
+
+Permite dar estilo a la primera letra.
+
+## `::before` y `::after`
+
+```css
+.aviso::before {
+  content: "⚠ ";
+}
+
+.aviso::after {
+  content: " ✓";
+}
+```
+
+Permiten generar contenido presentacional antes o después del contenido real del elemento.
+
+No deben utilizarse para insertar información semántica esencial que deba existir en el documento o ser confiablemente accesible.
+
+---
+
+# Animaciones CSS
+
+Las animaciones CSS permiten cambiar propiedades a lo largo del tiempo sin necesitar JavaScript para animaciones puramente visuales.
+
+## Definir keyframes
+
+```css
+@keyframes redondeo {
+  0% {
+    border-radius: 0;
+    background-color: red;
+    transform: rotate(0deg);
+  }
+
+  50% {
+    border-radius: 50%;
+    background-color: orange;
+    transform: rotate(90deg);
+  }
+
+  100% {
+    border-radius: 50%;
+    background-color: hotpink;
+    transform: rotate(180deg);
+  }
+}
+```
+
+Cada keyframe representa un punto de la secuencia temporal.
+
+## Aplicar la animación
+
+```css
+.caja {
+  animation: redondeo 4s 1s infinite;
+}
+```
+
+Esta forma abreviada puede incluir múltiples subpropiedades, entre ellas:
+
+- nombre;
+- duración;
+- función temporal;
+- demora;
+- cantidad de iteraciones;
+- dirección;
+- modo de relleno.
+
+Para mayor claridad puede escribirse:
+
+```css
+.caja {
+  animation-name: redondeo;
+  animation-duration: 4s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+}
+```
+
+Las animaciones no tienen que dividirse en porcentajes uniformes; los keyframes se colocan donde el efecto lo necesite.
+
+---
+
+# Transiciones CSS
+
+Una transición anima el cambio entre un valor de propiedad y otro cuando ocurre una modificación de estado.
+
+```css
+.auto {
+  margin-left: 0;
+  transition: margin-left 4s ease;
+}
+
+.auto:hover {
+  margin-left: 80%;
+}
+```
+
+La transición no define una secuencia independiente como `@keyframes`; interpola un cambio entre estados.
+
+## Funciones temporales
+
+Valores frecuentes:
+
+```text
+ease
+linear
+ease-in
+ease-out
+ease-in-out
+```
+
+También puede construirse una curva personalizada:
+
+```css
+transition-timing-function: cubic-bezier(...);
+```
+
+Para animaciones más fluidas suele ser preferible transformar con `transform` en lugar de animar propiedades que obligan a recalcular layout, como `margin-left`, cuando el efecto visual lo permite.
+
+---
+
+# CSS Grid
+
+Grid es un sistema de layout bidimensional basado en filas y columnas.
+
+## Crear un grid
+
+```css
+.contenedor {
+  display: grid;
+}
+```
+
+## Columnas con `fr`
+
+```css
+.contenedor {
+  grid-template-columns: repeat(4, 1fr);
+}
+```
+
+Esto crea cuatro tracks de columna que reparten equitativamente el espacio flexible disponible.
+
+`fr` significa **fracción del espacio disponible**, no literalmente una fracción del ancho total en todos los contextos, ya que otros tracks, gaps y tamaños mínimos también participan del cálculo.
+
+## Filas
+
+```css
+.contenedor {
+  grid-template-rows:
+    4rem
+    25%
+    1fr
+    3fr
+    auto;
+}
+```
+
+Grid permite combinar distintas unidades según el diseño.
+
+## Áreas con nombre
+
+```css
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "header menu menu menu"
+    "submenu submenu submenu submenu"
+    "main main main imagen"
+    "main main main extra"
+    "banner banner banner banner";
+}
+```
+
+Después cada elemento se asigna:
+
+```css
+.header {
+  grid-area: header;
+}
+
+.menu {
+  grid-area: menu;
+}
+
+.main {
+  grid-area: main;
+}
+```
+
+Repetir un mismo nombre en celdas contiguas crea un área rectangular que ocupa todas esas celdas.
+
+## Celdas vacías
+
+Un punto representa una celda sin nombre:
+
+```css
+grid-template-areas:
+  "header header"
+  ". main";
+```
+
+Las áreas nombradas deben formar rectángulos válidos.
+
+---
+
+# Responsive design y media queries
+
+Un diseño responsive adapta su presentación al espacio y a características del entorno.
+
+Las media queries permiten aplicar CSS condicionalmente.
+
+```css
+@media screen and (max-width: 750px) {
+  .contenedor {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "menu"
+      "submenu"
+      "main"
+      "imagen"
+      "extra"
+      "banner";
+  }
+}
+```
+
+Al superar o cruzar el breakpoint, el layout puede reorganizarse.
+
+Para un intervalo:
+
+```css
+@media screen and (min-width: 751px) and (max-width: 1023px) {
+  /* layout intermedio */
+}
+```
+
+También existe sintaxis moderna de rangos:
+
+```css
+@media (751px <= width <= 1023px) {
+  /* layout intermedio */
+}
+```
+
+## Breakpoints
+
+Los valores `750px`, `1023px`, etc. no son reglas universales para “celular” o “tablet”.
+
+Un breakpoint debería elegirse según dónde el diseño necesita reorganizarse, no únicamente según categorías de dispositivos.
+
+## Grid + media queries
+
+Una estrategia potente consiste en mantener los mismos nombres de áreas y redefinir únicamente su distribución:
+
+```css
+.pagina {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "menu main";
+}
+
+@media (max-width: 750px) {
+  .pagina {
+    grid-template-areas:
+      "header"
+      "menu"
+      "main";
+  }
+}
+```
+
+Esto desacopla el orden visual del layout respecto de una única disposición rígida.
+
+---
+
+# Flexbox, Grid y técnicas históricas
+
+Para layouts modernos:
+
+- **Flexbox** es especialmente apropiado para distribución en un eje y componentes;
+- **Grid** es especialmente apropiado para layouts bidimensionales;
+- `float` conserva casos de uso específicos, pero no es la primera opción para estructurar páginas;
+- `position` es fundamental para superposición y posicionamiento contextual, no como sustituto general de Grid o Flexbox;
+- tablas HTML deben reservarse para datos tabulares, no para maquetación.
+
+Elegir la herramienta correcta evita CSS frágil y reduce dependencias innecesarias entre posiciones y tamaños.
+
+---
+
+
 # Temas abiertos
 
 Quedaron anunciados o todavía requieren mayor desarrollo:
@@ -2578,14 +3273,13 @@ Quedaron anunciados o todavía requieren mayor desarrollo:
 - consumo de APIs.
 
 ### CSS
-- profundización en Flexbox;
-- CSS Grid;
-- diseño responsive;
-- media queries;
-- tipografía y otras propiedades visuales.
+- profundización sistemática en Flexbox;
+- accesibilidad y responsive design más allá de breakpoints por ancho;
+- estrategias modernas de imágenes, tipografía y performance.
 
 ### Próximos lenguajes/herramientas
-- TypeScript.
+- TypeScript;
+- Angular.
 
 Estas secciones se ampliarán cuando aparezcan en las clases siguientes.
 
@@ -3372,6 +4066,16 @@ No agrega margen exterior al contenedor; controla el espacio entre los ítems.
 ---
 
 # Referencias técnicas
+
+- MDN Web Docs — CSS text: https://developer.mozilla.org/docs/Web/CSS/CSS_text
+- MDN Web Docs — `display`: https://developer.mozilla.org/docs/Web/CSS/display
+- MDN Web Docs — `position`: https://developer.mozilla.org/docs/Web/CSS/position
+- MDN Web Docs — `float`: https://developer.mozilla.org/docs/Web/CSS/float
+- MDN Web Docs — CSS animations: https://developer.mozilla.org/docs/Web/CSS/CSS_animations
+- MDN Web Docs — CSS transitions: https://developer.mozilla.org/docs/Web/CSS/CSS_transitions
+- MDN Web Docs — CSS Grid: https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout
+- MDN Web Docs — Grid template areas: https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout/Grid_template_areas
+- MDN Web Docs — Media queries: https://developer.mozilla.org/docs/Web/CSS/CSS_media_queries
 
 - MDN Web Docs — CSS: https://developer.mozilla.org/docs/Web/CSS
 - MDN Web Docs — CSS selectors: https://developer.mozilla.org/docs/Web/CSS/CSS_selectors
