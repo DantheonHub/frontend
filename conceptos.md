@@ -2,6 +2,34 @@
 
 Esta biblioteca organiza el conocimiento de la materia por conceptos y no por el orden cronológico de las clases. El recorrido real de la cursada se conserva en `bitacora.md`.
 
+## Índice
+
+- [Fundamentos del desarrollo frontend](#fundamentos-del-desarrollo-frontend)
+- [HTML](#html)
+  - [Semántica, metadatos y atributos](#semántica-en-html)
+- [JavaScript](#javascript)
+  - [JSON](#json)
+  - [Variables, scope y tipos](#variables-y-bindings)
+  - [Arrays](#arrays)
+  - [Funciones y callbacks](#funciones)
+  - [Asincronía](#asincronía)
+  - [Módulos](#módulos-de-javascript)
+- [DOM y APIs del navegador](#dom-y-apis-del-navegador)
+  - [Selección y manipulación](#qué-es-el-dom)
+  - [Eventos](#eventos)
+  - [Formularios y contenido dinámico](#formularios-y-valores)
+- [CSS](#css)
+  - [Selectores, cascada y especificidad](#selectores-css)
+  - [Box model y unidades](#box-model)
+  - [Display y posicionamiento](#display-y-flujo-normal)
+  - [Animaciones y transiciones](#animaciones-css)
+  - [Flexbox y Grid](#layout-moderno-flexbox-y-grid)
+  - [Responsive design](#responsive-design-y-media-queries)
+- [Temas abiertos](#temas-abiertos)
+- [Referencias técnicas](#referencias-técnicas)
+
+---
+
 # Fundamentos del desarrollo frontend
 
 ## Qué es el frontend
@@ -229,10 +257,8 @@ Un documento bien estructurado reduce resultados inesperados y facilita accesibi
 
 ---
 
-# Semántica en HTML
-
-## Qué significa semántica
-
+## Semántica en HTML
+### Qué significa semántica
 La **semántica** describe el significado de un elemento, no simplemente su apariencia.
 
 Por ejemplo:
@@ -269,8 +295,7 @@ También existen muchos otros elementos cuyo significado es semántico aunque no
 
 Por lo tanto, “semántico” no significa simplemente “tener un nombre que describe una zona de la página”; se refiere a utilizar el elemento que expresa correctamente el significado y propósito del contenido.
 
-## Semántica frente a contenedores genéricos
-
+### Semántica frente a contenedores genéricos
 `<div>` y `<span>` son contenedores genéricos útiles cuando no existe un elemento con una semántica más apropiada.
 
 Un sitio podría construirse visualmente con numerosos `<div>` y CSS, pero hacerlo de manera indiscriminada elimina información estructural que HTML ya puede expresar.
@@ -295,10 +320,8 @@ puede sustituirse, cuando corresponde conceptualmente, por:
 
 Ambos bloques pueden verse idénticos después de aplicar CSS, pero el segundo comunica además que se trata de navegación.
 
-## Por qué importa el HTML semántico
-
-### Mantenibilidad
-
+### Por qué importa el HTML semántico
+#### Mantenibilidad
 Un elemento adecuado permite comprender más rápidamente la intención del código.
 
 ```html
@@ -311,8 +334,7 @@ expresa más información que una sucesión de contenedores genéricos sin nombr
 
 Esto cobra especial importancia cuando un proyecto debe ser modificado meses después o pasa de una persona a otra.
 
-### Accesibilidad
-
+#### Accesibilidad
 Muchos elementos HTML aportan semántica que las tecnologías de asistencia pueden utilizar.
 
 Los lectores de pantalla y otras herramientas pueden beneficiarse de:
@@ -326,8 +348,7 @@ Los lectores de pantalla y otras herramientas pueden beneficiarse de:
 
 La accesibilidad no depende solamente de utilizar etiquetas estructurales, pero un HTML semántico correcto proporciona una base importante.
 
-### SEO
-
+#### SEO
 La estructura y la semántica del HTML ayudan a los motores de búsqueda a interpretar el contenido.
 
 Sin embargo, utilizar `<main>`, `<article>` o `<footer>` no garantiza por sí mismo una posición determinada en los resultados. El **SEO (Search Engine Optimization)** comprende un conjunto mucho mayor de prácticas relacionadas con contenido, rastreo, indexación, rendimiento, metadatos, enlaces y otros factores.
@@ -338,8 +359,7 @@ Por eso, la relación correcta es:
 
 ---
 
-# Metadatos
-
+## Metadatos
 Los **metadatos** son información que describe o complementa otros datos.
 
 En un documento HTML, el `<head>` actúa como contenedor de buena parte de la información asociada al documento.
@@ -370,10 +390,8 @@ El idioma principal, por otra parte, se declara normalmente mediante el atributo
 
 ---
 
-# Atributos HTML
-
-## Qué es un atributo
-
+## Atributos HTML
+### Qué es un atributo
 Los **atributos** agregan información a un elemento o configuran determinadas características de su comportamiento.
 
 Se escriben normalmente en la etiqueta de apertura.
@@ -395,8 +413,7 @@ nombre="valor"
 
 pero no todos los atributos necesitan un valor textual explícito.
 
-## Atributos booleanos
-
+### Atributos booleanos
 HTML define atributos booleanos cuya presencia representa el valor verdadero.
 
 Por ejemplo:
@@ -407,8 +424,7 @@ Por ejemplo:
 
 La presencia de `disabled` deshabilita el control. Por eso, aunque el modelo “nombre–valor” es útil para muchos atributos, no es una regla universal de la sintaxis HTML.
 
-## Atributos globales y específicos
-
+### Atributos globales y específicos
 Algunos atributos pueden aplicarse a gran cantidad de elementos, como:
 
 - `id`;
@@ -426,8 +442,7 @@ Otros pertenecen a elementos concretos:
 
 `href` tiene sentido para el enlace y `src`/`alt` para la imagen.
 
-## `class` y separación entre estructura y presentación
-
+### `class` y separación entre estructura y presentación
 El atributo `class` permite identificar uno o varios elementos para aplicar reglas CSS o seleccionarlos desde JavaScript.
 
 ```html
@@ -583,10 +598,8 @@ console.log(JSON.stringify(persona));
 
 ---
 
-# JSON
-
-## Qué es JSON
-
+## JSON
+### Qué es JSON
 **JSON (JavaScript Object Notation)** es un formato textual para representar e intercambiar datos estructurados.
 
 Aunque su sintaxis está inspirada en los objetos literales de JavaScript, **JSON no es un tipo de dato JavaScript ni es lo mismo que un objeto JavaScript**.
@@ -603,8 +616,7 @@ Ejemplo JSON:
 
 Su naturaleza textual facilita el intercambio de información entre sistemas y lenguajes diferentes, razón por la que aparece con frecuencia en APIs web.
 
-## Objeto literal y JSON
-
+### Objeto literal y JSON
 Un objeto literal JavaScript puede escribirse así:
 
 ```javascript
@@ -627,8 +639,7 @@ Una representación JSON equivalente sería texto:
 
 La sintaxis se parece, pero sus reglas no son idénticas. Por ejemplo, en JSON los nombres de las propiedades deben escribirse entre comillas dobles.
 
-## `JSON.stringify()`
-
+### `JSON.stringify()`
 `JSON.stringify()` serializa un valor JavaScript a una cadena en formato JSON cuando ese valor puede representarse mediante JSON.
 
 ```javascript
@@ -647,8 +658,7 @@ No es correcto pensar que simplemente “pone comillas a todo”. La serializaci
 
 Además, no todo valor JavaScript tiene una representación JSON directa. Por ejemplo, propiedades cuyo valor es `undefined`, una función o un `Symbol` pueden omitirse durante la serialización.
 
-## `JSON.parse()`
-
+### `JSON.parse()`
 `JSON.parse()` realiza el camino inverso: analiza una cadena JSON válida y produce el valor JavaScript correspondiente.
 
 ```javascript
@@ -676,16 +686,13 @@ valor JavaScript
 Este mecanismo es especialmente importante cuando una aplicación recibe o envía información mediante APIs.
 
 
-## ECMAScript, motor y entorno
-
+### ECMAScript, motor y entorno
 Conviene separar tres conceptos.
 
-### ECMAScript
-
+#### ECMAScript
 Es la especificación que define el núcleo del lenguaje.
 
-### Motor de JavaScript
-
+#### Motor de JavaScript
 Es el software que implementa ECMAScript y ejecuta el código.
 
 Entre los motores conocidos se encuentran:
@@ -698,8 +705,7 @@ Los motores modernos no se limitan a “interpretar línea por línea”: utiliz
 
 Por eso, afirmar simplemente que JavaScript “es interpretado y no compilado” es una simplificación. Desde el punto de vista de quien desarrolla no suele existir un paso manual de compilación previo para ejecutar JavaScript común, pero internamente los motores modernos sí compilan y optimizan código.
 
-### Entorno anfitrión
-
+#### Entorno anfitrión
 El motor implementa el lenguaje; el entorno proporciona APIs adicionales.
 
 En un navegador aparecen, por ejemplo:
@@ -712,8 +718,7 @@ En un navegador aparecen, por ejemplo:
 
 Node.js proporciona otras APIs para archivos, procesos, red y servidores.
 
-## Script y algoritmo
-
+### Script y algoritmo
 Un **algoritmo** describe de manera abstracta un procedimiento para resolver un problema. Puede expresarse con lenguaje natural, pseudocódigo, diagramas o código.
 
 Un **script** es código concreto escrito en un lenguaje y ejecutable dentro de un entorno.
@@ -722,10 +727,8 @@ Por lo tanto, un script puede implementar uno o varios algoritmos, pero ambos co
 
 ---
 
-# Variables y bindings
-
-## `let`
-
+## Variables y bindings
+### `let`
 `let` declara un binding con **alcance de bloque** y permite reasignarlo.
 
 ```javascript
@@ -740,8 +743,7 @@ let contador = 1;
 // let contador = 2; // SyntaxError
 ```
 
-## `const`
-
+### `const`
 `const` también tiene alcance de bloque, pero exige inicialización y no permite reasignar el binding.
 
 ```javascript
@@ -770,8 +772,7 @@ Como regla general para código moderno:
 - usar `let` cuando sí;
 - evitar `var` salvo necesidad concreta o código legado.
 
-## `var`
-
+### `var`
 `var` es anterior a `let` y `const` y posee diferencias importantes:
 
 - tiene alcance de función, no de bloque;
@@ -800,8 +801,7 @@ function ejemplo() {
 }
 ```
 
-### Hoisting de `var`
-
+#### Hoisting de `var`
 Una declaración `var` pertenece al ámbito completo de la función aunque la asignación permanezca en su posición original.
 
 ```javascript
@@ -818,8 +818,7 @@ ejemplo(false); // undefined
 
 La declaración existe en el ámbito de la función, pero como la rama del `if` no se ejecutó, nunca ocurrió `valor = 10`.
 
-## No crear variables implícitas
-
+### No crear variables implícitas
 Código como:
 
 ```javascript
@@ -834,8 +833,7 @@ En modo estricto y en módulos JavaScript produce un `ReferenceError`. Los bindi
 
 ---
 
-# Scope o alcance
-
+## Scope o alcance
 El **scope** determina en qué parte del programa puede resolverse un identificador.
 
 JavaScript posee:
@@ -879,10 +877,8 @@ Los ámbitos se anidan: el código interno puede acceder a bindings externos dis
 
 ---
 
-# Tipos de datos
-
-## Primitivos
-
+## Tipos de datos
+### Primitivos
 JavaScript define siete tipos primitivos:
 
 | Tipo | Ejemplo |
@@ -897,8 +893,7 @@ JavaScript define siete tipos primitivos:
 
 Los primitivos son **inmutables**: una operación no modifica internamente el valor primitivo original; una reasignación hace que el binding pase a contener otro valor.
 
-### `null`
-
+#### `null`
 `null` representa intencionalmente ausencia de valor:
 
 ```javascript
@@ -913,8 +908,7 @@ typeof null; // "object"
 
 Ese resultado no significa que `null` sea realmente un objeto.
 
-### `undefined`
-
+#### `undefined`
 `undefined` aparece habitualmente cuando un binding o una propiedad no posee otro valor definido.
 
 ```javascript
@@ -928,8 +922,7 @@ Una distinción útil:
 - `null`: ausencia establecida deliberadamente;
 - `undefined`: valor todavía no definido o inexistente en ese acceso.
 
-## Valores truthy y falsy
-
+### Valores truthy y falsy
 En condiciones, JavaScript puede convertir valores a booleanos.
 
 Entre los valores **falsy** se encuentran:
@@ -957,8 +950,7 @@ if (dato) {
 
 ---
 
-# Objetos
-
+## Objetos
 Los valores no primitivos pertenecen al tipo `object`.
 
 ```javascript
@@ -979,8 +971,7 @@ edad     → 56
 
 Las propiedades pueden almacenar primitivas, arrays, otros objetos o funciones.
 
-## Acceso y modificación
-
+### Acceso y modificación
 ```javascript
 console.log(vendedor.nombre);
 
@@ -992,10 +983,8 @@ Esto es compatible con `const` porque se modifica el objeto, no se reasigna la v
 
 ---
 
-# Estructuras de control
-
-## Condicional `if`
-
+## Estructuras de control
+### Condicional `if`
 `if` permite ejecutar un bloque cuando una condición resulta verdadera.
 
 ```javascript
@@ -1016,8 +1005,7 @@ if (edad >= 18) {
 }
 ```
 
-## Operador condicional ternario
-
+### Operador condicional ternario
 El operador ternario expresa una selección entre dos expresiones:
 
 ```javascript
@@ -1034,10 +1022,8 @@ condición ? expresiónSiVerdadero : expresiónSiFalso
 
 Es útil para decisiones breves. Cuando la lógica contiene múltiples pasos o ramas complejas, un `if` suele ser más legible.
 
-## Bucles
-
-### `for`
-
+### Bucles
+#### `for`
 `for` es apropiado cuando la iteración se controla mediante inicialización, condición y actualización.
 
 ```javascript
@@ -1046,8 +1032,7 @@ for (let i = 0; i < 5; i++) {
 }
 ```
 
-### `while`
-
+#### `while`
 `while` repite un bloque mientras la condición sea verdadera.
 
 ```javascript
@@ -1059,8 +1044,7 @@ while (i < 5) {
 }
 ```
 
-### `do...while`
-
+#### `do...while`
 `do...while` evalúa la condición después de ejecutar el cuerpo, por lo que este se ejecuta al menos una vez.
 
 ```javascript
@@ -1076,179 +1060,8 @@ Los métodos de arrays como `forEach()`, `map()` o `filter()` no reemplazan conc
 
 ---
 
-# DOM
-
-## Qué es el DOM
-
-El **DOM (Document Object Model)** es una representación programática de un documento HTML como una estructura de nodos.
-
-Por ejemplo, a partir de:
-
-```html
-<body>
-  <main>
-    <h1>Frontend</h1>
-    <p>Introducción al DOM</p>
-  </main>
-</body>
-```
-
-puede pensarse una jerarquía como:
-
-```mermaid
-graph TD
-    A[Document] --> B[html]
-    B --> C[head]
-    B --> D[body]
-    D --> E[main]
-    E --> F[h1]
-    E --> G[p]
-```
-
-JavaScript puede interactuar con esa representación para:
-
-- consultar elementos;
-- cambiar contenido;
-- modificar atributos;
-- cambiar clases o estilos;
-- crear o eliminar nodos;
-- reaccionar a eventos.
-
-El DOM no es el texto HTML original ni forma parte del núcleo de ECMAScript: es una API proporcionada por el entorno del navegador.
-
----
-
-# Eventos
-
-## Concepto
-
-Un **evento** representa algo que ocurre en el entorno y que el programa puede observar: un clic, una tecla presionada, un cambio en un campo, la carga de un recurso, entre muchos otros.
-
-El patrón general es:
-
-```text
-ocurre un evento
-      ↓
-el navegador lo detecta
-      ↓
-se ejecuta una función asociada
-```
-
-Por ejemplo:
-
-```javascript
-const boton = document.querySelector("#guardar");
-
-boton.addEventListener("click", () => {
-  console.log("Se hizo clic");
-});
-```
-
-Aquí:
-
-- `"click"` es el tipo de evento;
-- la función entregada a `addEventListener()` es el callback que se ejecutará cuando ocurra.
-
-## Nombre del evento y manejador
-
-Conviene distinguir el nombre del evento de propiedades históricas como `onclick`.
-
-Con `addEventListener()` se utiliza:
-
-```javascript
-elemento.addEventListener("click", callback);
-```
-
-no:
-
-```javascript
-elemento.addEventListener("onclick", callback);
-```
-
-`click` es el tipo de evento. `onclick` es una propiedad para asignar un manejador:
-
-```javascript
-boton.onclick = () => {
-  console.log("clic");
-};
-```
-
-En código moderno, `addEventListener()` suele ser preferible porque permite registrar múltiples listeners y ofrece más opciones de control.
-
-Otros eventos frecuentes son:
-
-```text
-keydown
-input
-change
-submit
-focus
-blur
-load
-mouseover
-```
-
----
-
-# Manejo de errores
-
-## `try...catch`
-
-`try...catch` permite capturar excepciones que ocurren durante la ejecución.
-
-```javascript
-try {
-  JSON.parse("texto que no es JSON");
-} catch (error) {
-  console.error("No se pudo procesar el JSON");
-}
-```
-
-El bloque `try` contiene el código que puede lanzar una excepción.
-
-Si ocurre una excepción capturable, la ejecución salta al `catch`.
-
-El objeto recibido en `catch` permite inspeccionar información sobre el error:
-
-```javascript
-try {
-  JSON.parse("{");
-} catch (error) {
-  console.log(error.name);
-  console.log(error.message);
-}
-```
-
-## `finally`
-
-Puede agregarse un bloque `finally`:
-
-```javascript
-try {
-  console.log("Intento");
-} catch (error) {
-  console.error(error);
-} finally {
-  console.log("Esto se ejecuta al finalizar");
-}
-```
-
-`finally` se ejecuta tanto si el `try` completa normalmente como si se produce una excepción capturada.
-
-## Qué no hace `try...catch`
-
-No debe entenderse como un mecanismo que vuelve seguro cualquier código o evita que “el programa explote” ante cualquier problema.
-
-`try...catch` trabaja con **excepciones lanzadas durante la ejecución** dentro de su alcance. No corrige errores lógicos y existen situaciones asincrónicas en las que un `try...catch` externo no captura automáticamente un error producido posteriormente.
-
-El tratamiento detallado de errores asincrónicos se relacionará más adelante con promesas y `async`/`await`.
-
----
-
-# Arrays
-
-## Qué es un array
-
+## Arrays
+### Qué es un array
 Un **array** es un objeto especializado de JavaScript para representar colecciones ordenadas de valores.
 
 ```javascript
@@ -1271,8 +1084,7 @@ console.log(frutas.length); // 3
 
 Aunque conceptualmente puede pensarse como una colección o secuencia, JavaScript no posee un tipo incorporado denominado `List` equivalente a las listas de otros lenguajes. Conviene estudiar `Array` según su propio comportamiento en JavaScript.
 
-## Creación
-
+### Creación
 La forma literal es la más habitual:
 
 ```javascript
@@ -1295,8 +1107,7 @@ Esto no crea `[5]`: crea un array con `length === 5` y cinco posiciones vacías.
 
 En código habitual, la sintaxis literal suele ser más clara.
 
-## Detección de arrays
-
+### Detección de arrays
 Como los arrays son objetos:
 
 ```javascript
@@ -1312,8 +1123,7 @@ Array.isArray([1, 2, 3]); // true
 Array.isArray({});        // false
 ```
 
-## Igualdad y referencias
-
+### Igualdad y referencias
 Dos arrays creados por separado son objetos distintos aunque contengan los mismos elementos:
 
 ```javascript
@@ -1336,12 +1146,10 @@ console.log(a === b); // true
 
 ---
 
-## Métodos que consultan o crean resultados sin modificar el array original
-
+### Métodos que consultan o crean resultados sin modificar el array original
 Es importante distinguir los métodos que **mutan** el array receptor de los que producen información o nuevos arrays.
 
-### `filter()`
-
+#### `filter()`
 `filter()` recorre el array y devuelve un **nuevo array** con todos los elementos que cumplen una condición.
 
 ```javascript
@@ -1373,8 +1181,7 @@ const sinPeras = frutas.filter(fruta => fruta !== "pera");
 
 pero `frutas` continúa intacto.
 
-### `find()`
-
+#### `find()`
 `find()` devuelve el **primer elemento** que satisface la condición.
 
 ```javascript
@@ -1394,8 +1201,7 @@ Una diferencia conceptual importante:
 
 Cuando solo se necesita una coincidencia, `find()` expresa mejor la intención y puede evitar recorrer innecesariamente el resto del array.
 
-### `findIndex()`
-
+#### `findIndex()`
 `findIndex()` devuelve el índice del primer elemento que satisface la condición.
 
 ```javascript
@@ -1408,8 +1214,7 @@ console.log(indice); // 2
 
 Si no existe coincidencia devuelve `-1`.
 
-### `some()`
-
+#### `some()`
 `some()` responde si **al menos un elemento** cumple la condición.
 
 ```javascript
@@ -1420,8 +1225,7 @@ console.log(numeros.some(numero => numero % 2 !== 0)); // true
 
 Devuelve un booleano y puede finalizar tan pronto encuentra una coincidencia.
 
-### `every()`
-
+#### `every()`
 `every()` responde si **todos los elementos** cumplen la condición.
 
 ```javascript
@@ -1432,8 +1236,7 @@ console.log(numeros.every(numero => numero % 2 === 0)); // true
 
 Si algún elemento no satisface la condición, puede finalizar la búsqueda inmediatamente.
 
-### `slice()`
-
+#### `slice()`
 `slice()` devuelve una **copia superficial** de una porción del array y no modifica el original.
 
 ```javascript
@@ -1453,8 +1256,7 @@ slice(inicio, fin)
               excluido
 ```
 
-### `concat()`
-
+#### `concat()`
 `concat()` combina valores o arrays y devuelve un nuevo array.
 
 ```javascript
@@ -1467,8 +1269,7 @@ console.log(combinado); // [1, 2, 3, 4]
 console.log(a);         // [1, 2]
 ```
 
-### `forEach()`
-
+#### `forEach()`
 `forEach()` ejecuta una función una vez por cada elemento.
 
 ```javascript
@@ -1513,8 +1314,7 @@ La mutación ocurre porque el callback modifica explícitamente el array origina
 
 Para producir una colección transformada suele ser más apropiado `map()`.
 
-### `map()`
-
+#### `map()`
 `map()` devuelve un nuevo array aplicando una transformación a cada elemento.
 
 ```javascript
@@ -1533,10 +1333,8 @@ La diferencia central frente a `forEach()` es de intención y retorno:
 
 ---
 
-## Métodos que modifican el array original
-
-### `push()`
-
+### Métodos que modifican el array original
+#### `push()`
 Agrega uno o más elementos al final y devuelve la nueva longitud.
 
 ```javascript
@@ -1548,8 +1346,7 @@ console.log(frutas);  // ["manzana", "pera"]
 console.log(longitud); // 2
 ```
 
-### `pop()`
-
+#### `pop()`
 Elimina y devuelve el último elemento.
 
 ```javascript
@@ -1561,8 +1358,7 @@ console.log(ultima);  // "pera"
 console.log(frutas);  // ["manzana"]
 ```
 
-### `shift()`
-
+#### `shift()`
 Elimina y devuelve el primer elemento.
 
 ```javascript
@@ -1574,8 +1370,7 @@ console.log(primera); // "manzana"
 console.log(frutas);  // ["pera"]
 ```
 
-### `unshift()`
-
+#### `unshift()`
 Agrega uno o más elementos al principio y devuelve la nueva longitud.
 
 ```javascript
@@ -1586,8 +1381,7 @@ frutas.unshift("manzana");
 console.log(frutas); // ["manzana", "pera"]
 ```
 
-### `fill()`
-
+#### `fill()`
 `fill()` reemplaza posiciones del array con un valor y **modifica el array original**.
 
 ```javascript
@@ -1611,8 +1405,7 @@ array.fill(valor, inicio, fin);
 
 Además, `fill()` devuelve una referencia al mismo array modificado.
 
-### `splice()`
-
+#### `splice()`
 `splice()` permite eliminar, insertar o reemplazar elementos **modificando el array original**.
 
 Forma general:
@@ -1621,8 +1414,7 @@ Forma general:
 array.splice(indiceInicial, cantidadAEliminar, ...elementosNuevos);
 ```
 
-#### Eliminar
-
+##### Eliminar
 ```javascript
 const numeros = [1, 2, 3, 4, 5];
 
@@ -1632,8 +1424,7 @@ console.log(numeros);   // [1, 2, 4, 5]
 console.log(eliminados); // [3]
 ```
 
-#### Insertar sin eliminar
-
+##### Insertar sin eliminar
 ```javascript
 const numeros = [1, 2, 3, 4, 5];
 
@@ -1643,8 +1434,7 @@ console.log(numeros);
 // [1, 2, 99, 100, 3, 4, 5]
 ```
 
-#### Reemplazar
-
+##### Reemplazar
 ```javascript
 const numeros = [1, 2, 3, 4, 5];
 
@@ -1662,8 +1452,7 @@ La distinción es importante:
 - modifica el array original;
 - devuelve un nuevo array que contiene los elementos eliminados.
 
-## `slice()` frente a `splice()`
-
+### `slice()` frente a `splice()`
 Aunque sus nombres se parecen, sus comportamientos son muy distintos:
 
 | Método | Modifica original | Resultado principal |
@@ -1673,8 +1462,7 @@ Aunque sus nombres se parecen, sus comportamientos son muy distintos:
 
 ---
 
-## Ordenamiento con `sort()`
-
+### Ordenamiento con `sort()`
 `sort()` ordena el array **in place**, por lo que modifica el original.
 
 ```javascript
@@ -1686,8 +1474,7 @@ console.log(frutas);
 // ["banana", "manzana", "pera"]
 ```
 
-### Ordenamiento numérico
-
+#### Ordenamiento numérico
 El orden por defecto convierte los elementos a strings y los compara según sus valores UTF-16.
 
 Por eso:
@@ -1721,16 +1508,14 @@ La función comparadora debe devolver:
 - un número positivo si `a` debe aparecer después de `b`;
 - `0` si ambos se consideran equivalentes para el ordenamiento.
 
-### No asumir un algoritmo interno único
-
+#### No asumir un algoritmo interno único
 La especificación define el comportamiento observable de `sort()`, pero no obliga a utilizar un único algoritmo concreto ni garantiza una complejidad temporal fija.
 
 Desde ECMAScript 2019 el ordenamiento debe ser **estable**: si dos elementos son equivalentes para la función comparadora, conservan entre sí su orden relativo previo.
 
 Por lo tanto, no debe estudiarse `sort()` como sinónimo de Timsort ni asignársele una complejidad fija como propiedad del lenguaje.
 
-### Ordenar sin modificar el original
-
+#### Ordenar sin modificar el original
 En JavaScript moderno existe `toSorted()`:
 
 ```javascript
@@ -1749,12 +1534,10 @@ const ordenados = [...originales].sort((a, b) => a - b);
 
 ---
 
-## Mutabilidad e inmutabilidad práctica
-
+### Mutabilidad e inmutabilidad práctica
 Al trabajar con arrays conviene saber si una operación modifica la estructura original.
 
-### Habitualmente no mutan
-
+#### Habitualmente no mutan
 - `filter()`;
 - `find()`;
 - `findIndex()`;
@@ -1764,8 +1547,7 @@ Al trabajar con arrays conviene saber si una operación modifica la estructura o
 - `concat()`;
 - `map()`.
 
-### Mutan
-
+#### Mutan
 - `push()`;
 - `pop()`;
 - `shift()`;
@@ -1778,8 +1560,7 @@ Al trabajar con arrays conviene saber si una operación modifica la estructura o
 
 Conocer esta diferencia ayuda a evitar cambios accidentales de estado y será especialmente importante al trabajar posteriormente con componentes y estado de interfaz.
 
-# Funciones
-
+## Funciones
 Una **función** agrupa instrucciones reutilizables que pueden ejecutarse cuando la función es invocada.
 
 ```javascript
@@ -1801,8 +1582,7 @@ Las funciones pueden:
 
 En JavaScript son valores de primera clase.
 
-## Parámetros y argumentos
-
+### Parámetros y argumentos
 ```javascript
 function saludar(nombre) {
   console.log(`Hola ${nombre}`);
@@ -1814,8 +1594,7 @@ saludar("Ana");
 - `nombre` es un **parámetro**;
 - `"Ana"` es un **argumento**.
 
-## Métodos
-
+### Métodos
 Cuando una función se almacena como propiedad de un objeto y se invoca a través de él, suele denominarse **método**.
 
 ```javascript
@@ -1832,8 +1611,7 @@ vendedor.vender();
 
 La diferencia entre función y método no depende de que exista o no un valor de retorno.
 
-## Funciones tradicionales
-
+### Funciones tradicionales
 ```javascript
 function sumar(a, b) {
   return a + b;
@@ -1848,8 +1626,7 @@ const sumar = function (a, b) {
 };
 ```
 
-## Funciones flecha
-
+### Funciones flecha
 ```javascript
 const sumar = (a, b) => {
   return a + b;
@@ -1864,8 +1641,7 @@ const sumar = (a, b) => a + b;
 
 Las arrow functions no son solo una abreviatura de `function`.
 
-### `this` léxico
-
+#### `this` léxico
 Una función tradicional usada como método puede recibir `this` según cómo se invoca:
 
 ```javascript
@@ -1898,8 +1674,7 @@ Las arrow functions tampoco pueden utilizarse como constructor con `new`.
 
 ---
 
-## Retorno implícito en funciones flecha
-
+### Retorno implícito en funciones flecha
 Cuando una arrow function contiene una única expresión, puede omitir las llaves y la palabra `return`.
 
 ```javascript
@@ -1933,8 +1708,7 @@ La forma breve mejora la legibilidad cuando la operación es realmente simple; n
 
 ---
 
-# Callbacks
-
+## Callbacks
 Un **callback** es una función que se pasa a otra función para que esta pueda utilizarla.
 
 ```javascript
@@ -2000,8 +1774,7 @@ Aquí:
 
 ---
 
-# Declaraciones de funciones y hoisting
-
+## Declaraciones de funciones y hoisting
 Las **function declarations** pueden utilizarse antes de su posición textual en el archivo:
 
 ```javascript
@@ -2016,8 +1789,7 @@ Este comportamiento suele explicarse mediante el concepto de **hoisting**.
 
 Hoisting es un modelo mental útil, pero no significa que el motor mueva físicamente líneas de código hacia arriba. Durante la preparación del contexto de ejecución, determinadas declaraciones quedan disponibles antes de que comience la ejecución de las instrucciones del cuerpo.
 
-## Declaraciones repetidas con el mismo nombre
-
+### Declaraciones repetidas con el mismo nombre
 Declarar repetidamente funciones con el mismo nombre dentro del mismo ámbito es confuso y debe evitarse.
 
 ```javascript
@@ -2036,10 +1808,136 @@ Por eso no debe diseñarse una API JavaScript esperando que el motor elija autom
 
 ---
 
-# Asincronía
+## Manejo de errores
+### `try...catch`
+`try...catch` permite capturar excepciones que ocurren durante la ejecución.
 
-## Idea general
+```javascript
+try {
+  JSON.parse("texto que no es JSON");
+} catch (error) {
+  console.error("No se pudo procesar el JSON");
+}
+```
 
+El bloque `try` contiene el código que puede lanzar una excepción.
+
+Si ocurre una excepción capturable, la ejecución salta al `catch`.
+
+El objeto recibido en `catch` permite inspeccionar información sobre el error:
+
+```javascript
+try {
+  JSON.parse("{");
+} catch (error) {
+  console.log(error.name);
+  console.log(error.message);
+}
+```
+
+### `finally`
+Puede agregarse un bloque `finally`:
+
+```javascript
+try {
+  console.log("Intento");
+} catch (error) {
+  console.error(error);
+} finally {
+  console.log("Esto se ejecuta al finalizar");
+}
+```
+
+`finally` se ejecuta tanto si el `try` completa normalmente como si se produce una excepción capturada.
+
+### Qué no hace `try...catch`
+No debe entenderse como un mecanismo que vuelve seguro cualquier código o evita que “el programa explote” ante cualquier problema.
+
+`try...catch` trabaja con **excepciones lanzadas durante la ejecución** dentro de su alcance. No corrige errores lógicos y existen situaciones asincrónicas en las que un `try...catch` externo no captura automáticamente un error producido posteriormente.
+
+El tratamiento detallado de errores asincrónicos se relacionará más adelante con promesas y `async`/`await`.
+
+---
+
+## Asignación de primitivos y objetos
+### Primitivos: copia del valor
+```javascript
+let a = 10;
+let b = a;
+
+a = 20;
+
+console.log(a); // 20
+console.log(b); // 10
+```
+
+El valor de `b` es independiente de la posterior reasignación de `a`.
+
+### Objetos: referencia compartida
+```javascript
+const objeto1 = {
+  nombre: "Carlos"
+};
+
+const objeto2 = objeto1;
+
+objeto1.nombre = "Juan";
+
+console.log(objeto2.nombre); // "Juan"
+```
+
+Ambos bindings permiten acceder al mismo objeto.
+
+Un modelo mental útil:
+
+```text
+objeto1 ──┐
+          ├──> { nombre: "Juan" }
+objeto2 ──┘
+```
+
+Esto no significa que los objetos “no ocupen memoria”. Es una abstracción para comprender la semántica observable: al asignar un objeto a otra variable, se copia la referencia al mismo objeto, no se crea automáticamente un clon independiente.
+
+### Comparación
+```javascript
+const a = { valor: 1 };
+const b = { valor: 1 };
+
+console.log(a === b); // false
+```
+
+Son dos objetos distintos.
+
+```javascript
+const a = { valor: 1 };
+const b = a;
+
+console.log(a === b); // true
+```
+
+Aquí ambos bindings refieren al mismo objeto.
+
+---
+
+## Gestión automática de memoria
+JavaScript administra memoria automáticamente mediante mecanismos de **garbage collection**.
+
+```javascript
+let dato = {
+  contenido: "temporal"
+};
+
+dato = null;
+```
+
+Si el objeto anterior deja de ser alcanzable desde el programa, el motor puede considerarlo candidato para recuperar su memoria.
+
+El programa no controla el momento exacto en que ocurrirá la recolección.
+
+---
+
+## Asincronía
+### Idea general
 Una operación **asíncrona** permite iniciar trabajo cuyo resultado llegará más adelante sin bloquear necesariamente la continuación inmediata del flujo principal.
 
 Ejemplos habituales en frontend:
@@ -2053,8 +1951,7 @@ JavaScript ejecuta código sobre un modelo de ejecución coordinado con el entor
 
 La asincronía no significa que cada tarea se ejecute simplemente “en paralelo” dentro del mismo hilo de JavaScript. Para comprender su orden real será necesario estudiar posteriormente el **event loop**, las colas de tareas y las promesas.
 
-## `setTimeout()`
-
+### `setTimeout()`
 `setTimeout()` solicita ejecutar una función después de que haya transcurrido **como mínimo** una demora indicada.
 
 ```javascript
@@ -2076,8 +1973,7 @@ Los `3000` representan milisegundos.
 
 La demora no garantiza un instante exacto. Significa que la función no debe ejecutarse antes de ese umbral; puede ejecutarse después si el entorno todavía está ocupado.
 
-## Callback en `setTimeout()`
-
+### Callback en `setTimeout()`
 El primer argumento de `setTimeout()` es una función callback.
 
 ```javascript
@@ -2102,8 +1998,7 @@ setTimeout(() => {
 }, 3000);
 ```
 
-## Orden de ejecución
-
+### Orden de ejecución
 ```javascript
 console.log("A");
 
@@ -2128,8 +2023,26 @@ Este modelo es fundamental para comprender posteriormente solicitudes HTTP, even
 
 ---
 
-# Scope léxico y modificación de bindings externos
+## Temporizadores aplicados a iteraciones
+Programar varios `setTimeout()` dentro de un ciclo no hace que una iteración espere a la anterior.
 
+Para escalonar acciones puede calcularse la demora con el índice:
+
+```javascript
+const elementos = ["A", "B", "C"];
+
+elementos.forEach((elemento, indice) => {
+  setTimeout(() => {
+    console.log(elemento);
+  }, indice * 1000);
+});
+```
+
+Esto programa ejecuciones aproximadamente en 0 ms, 1000 ms y 2000 ms.
+
+---
+
+## Scope léxico y modificación de bindings externos
 Una función puede acceder a bindings definidos en un ámbito exterior:
 
 ```javascript
@@ -2169,310 +2082,10 @@ Por lo tanto, son mecanismos distintos:
 
 ---
 
-# Asignación de primitivos y objetos
-
-## Primitivos: copia del valor
-
-```javascript
-let a = 10;
-let b = a;
-
-a = 20;
-
-console.log(a); // 20
-console.log(b); // 10
-```
-
-El valor de `b` es independiente de la posterior reasignación de `a`.
-
-## Objetos: referencia compartida
-
-```javascript
-const objeto1 = {
-  nombre: "Carlos"
-};
-
-const objeto2 = objeto1;
-
-objeto1.nombre = "Juan";
-
-console.log(objeto2.nombre); // "Juan"
-```
-
-Ambos bindings permiten acceder al mismo objeto.
-
-Un modelo mental útil:
-
-```text
-objeto1 ──┐
-          ├──> { nombre: "Juan" }
-objeto2 ──┘
-```
-
-Esto no significa que los objetos “no ocupen memoria”. Es una abstracción para comprender la semántica observable: al asignar un objeto a otra variable, se copia la referencia al mismo objeto, no se crea automáticamente un clon independiente.
-
-## Comparación
-
-```javascript
-const a = { valor: 1 };
-const b = { valor: 1 };
-
-console.log(a === b); // false
-```
-
-Son dos objetos distintos.
-
-```javascript
-const a = { valor: 1 };
-const b = a;
-
-console.log(a === b); // true
-```
-
-Aquí ambos bindings refieren al mismo objeto.
-
----
-
-# Gestión automática de memoria
-
-JavaScript administra memoria automáticamente mediante mecanismos de **garbage collection**.
-
-```javascript
-let dato = {
-  contenido: "temporal"
-};
-
-dato = null;
-```
-
-Si el objeto anterior deja de ser alcanzable desde el programa, el motor puede considerarlo candidato para recuperar su memoria.
-
-El programa no controla el momento exacto en que ocurrirá la recolección.
-
----
-
-
-# Integración de HTML, CSS y JavaScript
-
-Una aplicación frontend suele separar responsabilidades entre distintos archivos:
-
-```text
-proyecto/
-├── index.html
-├── styles/
-│   └── styles.css
-└── scripts/
-    └── script.js
-```
-
-La separación no es una restricción técnica absoluta, pero mejora la organización, reutilización y mantenimiento.
-
-## Vincular CSS
-
-Una hoja de estilos externa se vincula normalmente desde `<head>`:
-
-```html
-<link rel="stylesheet" href="./styles/styles.css">
-```
-
-## Vincular JavaScript
-
-Un script externo clásico puede cargarse con:
-
-```html
-<script src="./scripts/script.js"></script>
-```
-
-Colocarlo cerca del final de `<body>` es una estrategia tradicional para ejecutar el script después de que el HTML principal ya haya sido analizado. También pueden utilizarse `defer` o módulos:
-
-```html
-<script defer src="./scripts/script.js"></script>
-```
-
-```html
-<script type="module" src="./scripts/main.js"></script>
-```
-
-Los scripts de tipo módulo se procesan de forma diferida respecto del análisis del HTML.
-
----
-
-# Manipulación práctica del DOM
-
-## Seleccionar por `id`
-
-```html
-<p id="mensaje">Texto original</p>
-```
-
-```javascript
-const mensaje = document.getElementById("mensaje");
-```
-
-El `id` debe identificar de forma única a un elemento dentro del documento.
-
-## `innerText`
-
-```javascript
-mensaje.innerText = "Texto modificado";
-```
-
-Si se asigna una cadena que contiene etiquetas, se muestran como texto.
-
-## `innerHTML`
-
-```javascript
-const contenedor = document.getElementById("contenedor");
-
-contenedor.innerHTML = "<strong>Hola</strong>";
-```
-
-En este caso la cadena se interpreta como marcado HTML.
-
-### Precaución
-
-No debe insertarse con `innerHTML` contenido externo o proporcionado por usuarios sin tratamiento adecuado. Interpretar contenido no confiable como HTML puede introducir vulnerabilidades XSS.
-
----
-
-# Eventos en la práctica
-
-## Manejadores inline
-
-```html
-<button onclick="cambiarTexto()">Cambiar texto</button>
-```
-
-```javascript
-function cambiarTexto() {
-  const mensaje = document.getElementById("mensaje");
-  mensaje.innerText = "Nuevo texto";
-}
-```
-
-Esta forma permite visualizar el mecanismo evento → función, aunque mezcla comportamiento con marcado.
-
-## `addEventListener()`
-
-```html
-<button id="btnCambiar">Cambiar texto</button>
-```
-
-```javascript
-const boton = document.getElementById("btnCambiar");
-
-boton.addEventListener("click", () => {
-  console.log("Se hizo clic");
-});
-```
-
-El tipo de evento es `"click"`, no `"onclick"`.
-
-## Eventos usados en la clase
-
-```text
-click
-keydown
-change
-```
-
-Para reaccionar a cada modificación de texto de un `<input>`, el evento `input` suele resultar más específico que `keydown`.
-
----
-
-# Formularios y valores
-
-## Asociación entre `label` e `input`
-
-```html
-<label for="nombre">Nombre</label>
-<input id="nombre" type="text">
-```
-
-El atributo `for` vincula la etiqueta con el control cuyo `id` coincide.
-
-## Propiedad `value`
-
-```html
-<select id="color">
-  <option value="red">Rojo</option>
-  <option value="blue">Azul</option>
-  <option value="green">Verde</option>
-</select>
-```
-
-```javascript
-const selector = document.getElementById("color");
-
-console.log(selector.value);
-```
-
-Ese valor puede utilizarse en una estructura de control como `switch`.
-
----
-
-# Modificación de estilos desde JavaScript
-
-```javascript
-const entrada = document.getElementById("entrada");
-
-entrada.style.color = "red";
-entrada.style.backgroundColor = "black";
-entrada.style.fontWeight = "bold";
-```
-
-También existe `style.cssText`, pero para aplicaciones mantenibles suele ser preferible definir estilos en CSS y alternar clases desde JavaScript:
-
-```javascript
-entrada.classList.add("destacado");
-```
-
----
-
-# Construcción dinámica de contenido
-
-```javascript
-const compras = ["carne", "ensalada", "bebida", "postre"];
-
-let items = "";
-
-for (let i = 0; i < compras.length; i++) {
-  items += `<li>${compras[i]}</li>`;
-}
-
-document.getElementById("lista").innerHTML = items;
-```
-
-Esta técnica ilustra cómo convertir datos en marcado. Más adelante también puede utilizarse la API DOM (`createElement`, `append`, etc.) para crear nodos directamente.
-
----
-
-# Temporizadores aplicados a iteraciones
-
-Programar varios `setTimeout()` dentro de un ciclo no hace que una iteración espere a la anterior.
-
-Para escalonar acciones puede calcularse la demora con el índice:
-
-```javascript
-const elementos = ["A", "B", "C"];
-
-elementos.forEach((elemento, indice) => {
-  setTimeout(() => {
-    console.log(elemento);
-  }, indice * 1000);
-});
-```
-
-Esto programa ejecuciones aproximadamente en 0 ms, 1000 ms y 2000 ms.
-
----
-
-# Módulos de JavaScript
-
+## Módulos de JavaScript
 Los **ECMAScript Modules (ESM)** permiten dividir el programa en archivos con responsabilidades separadas y compartir explícitamente determinadas partes.
 
-## Exportaciones nombradas
-
+### Exportaciones nombradas
 ```javascript
 export const html = {
   titulo: "HTML",
@@ -2494,14 +2107,12 @@ const css = { titulo: "CSS" };
 export { html, css };
 ```
 
-## Importaciones nombradas
-
+### Importaciones nombradas
 ```javascript
 import { html, css } from "./lenguajes.js";
 ```
 
-## Cargar un módulo desde HTML
-
+### Cargar un módulo desde HTML
 ```html
 <script type="module" src="./scripts/main.js"></script>
 ```
@@ -2518,8 +2129,140 @@ Esto es relevante al combinar módulos con manejadores inline, porque una funci�
 
 ---
 
-# Selección con `querySelectorAll()`
+# DOM y APIs del navegador
 
+JavaScript se vuelve específicamente **frontend de navegador** cuando interactúa con las APIs que el entorno web expone. El DOM representa el documento; los eventos permiten reaccionar a acciones y cambios; los controles de formulario aportan datos; y los módulos ayudan a dividir esa lógica en unidades mantenibles.
+
+El puente conceptual es:
+
+```text
+HTML define estructura
+      ↓
+el navegador construye el DOM
+      ↓
+JavaScript consulta y modifica ese DOM
+      ↓
+los eventos disparan comportamiento
+      ↓
+la interfaz cambia sin recargar necesariamente el documento completo
+```
+
+## Integración de HTML, CSS y JavaScript
+Una aplicación frontend suele separar responsabilidades entre distintos archivos:
+
+```text
+proyecto/
+├── index.html
+├── styles/
+│   └── styles.css
+└── scripts/
+    └── script.js
+```
+
+La separación no es una restricción técnica absoluta, pero mejora la organización, reutilización y mantenimiento.
+
+### Vincular CSS
+Una hoja de estilos externa se vincula normalmente desde `<head>`:
+
+```html
+<link rel="stylesheet" href="./styles/styles.css">
+```
+
+### Vincular JavaScript
+Un script externo clásico puede cargarse con:
+
+```html
+<script src="./scripts/script.js"></script>
+```
+
+Colocarlo cerca del final de `<body>` es una estrategia tradicional para ejecutar el script después de que el HTML principal ya haya sido analizado. También pueden utilizarse `defer` o módulos:
+
+```html
+<script defer src="./scripts/script.js"></script>
+```
+
+```html
+<script type="module" src="./scripts/main.js"></script>
+```
+
+Los scripts de tipo módulo se procesan de forma diferida respecto del análisis del HTML.
+
+---
+
+## DOM
+### Qué es el DOM
+El **DOM (Document Object Model)** es una representación programática de un documento HTML como una estructura de nodos.
+
+Por ejemplo, a partir de:
+
+```html
+<body>
+  <main>
+    <h1>Frontend</h1>
+    <p>Introducción al DOM</p>
+  </main>
+</body>
+```
+
+puede pensarse una jerarquía como:
+
+```mermaid
+graph TD
+    A[Document] --> B[html]
+    B --> C[head]
+    B --> D[body]
+    D --> E[main]
+    E --> F[h1]
+    E --> G[p]
+```
+
+JavaScript puede interactuar con esa representación para:
+
+- consultar elementos;
+- cambiar contenido;
+- modificar atributos;
+- cambiar clases o estilos;
+- crear o eliminar nodos;
+- reaccionar a eventos.
+
+El DOM no es el texto HTML original ni forma parte del núcleo de ECMAScript: es una API proporcionada por el entorno del navegador.
+
+---
+
+## Selección y manipulación del DOM
+### Seleccionar por `id`
+```html
+<p id="mensaje">Texto original</p>
+```
+
+```javascript
+const mensaje = document.getElementById("mensaje");
+```
+
+El `id` debe identificar de forma única a un elemento dentro del documento.
+
+### `innerText`
+```javascript
+mensaje.innerText = "Texto modificado";
+```
+
+Si se asigna una cadena que contiene etiquetas, se muestran como texto.
+
+### `innerHTML`
+```javascript
+const contenedor = document.getElementById("contenedor");
+
+contenedor.innerHTML = "<strong>Hola</strong>";
+```
+
+En este caso la cadena se interpreta como marcado HTML.
+
+#### Precaución
+No debe insertarse con `innerHTML` contenido externo o proporcionado por usuarios sin tratamiento adecuado. Interpretar contenido no confiable como HTML puede introducir vulnerabilidades XSS.
+
+---
+
+## Selección con `querySelectorAll()`
 `document.querySelectorAll()` recibe un selector CSS y devuelve una `NodeList` estática.
 
 ```javascript
@@ -2550,8 +2293,179 @@ const arrayItems = Array.from(items);
 
 ---
 
-# Ejercicio integrador de DOM y módulos
+## Eventos
+### Concepto
+Un **evento** representa algo que ocurre en el entorno y que el programa puede observar: un clic, una tecla presionada, un cambio en un campo, la carga de un recurso, entre muchos otros.
 
+El patrón general es:
+
+```text
+ocurre un evento
+      ↓
+el navegador lo detecta
+      ↓
+se ejecuta una función asociada
+```
+
+Por ejemplo:
+
+```javascript
+const boton = document.querySelector("#guardar");
+
+boton.addEventListener("click", () => {
+  console.log("Se hizo clic");
+});
+```
+
+Aquí:
+
+- `"click"` es el tipo de evento;
+- la función entregada a `addEventListener()` es el callback que se ejecutará cuando ocurra.
+
+### Nombre del evento y manejador
+Conviene distinguir el nombre del evento de propiedades históricas como `onclick`.
+
+Con `addEventListener()` se utiliza:
+
+```javascript
+elemento.addEventListener("click", callback);
+```
+
+no:
+
+```javascript
+elemento.addEventListener("onclick", callback);
+```
+
+`click` es el tipo de evento. `onclick` es una propiedad para asignar un manejador:
+
+```javascript
+boton.onclick = () => {
+  console.log("clic");
+};
+```
+
+En código moderno, `addEventListener()` suele ser preferible porque permite registrar múltiples listeners y ofrece más opciones de control.
+
+Otros eventos frecuentes son:
+
+```text
+keydown
+input
+change
+submit
+focus
+blur
+load
+mouseover
+```
+
+---
+
+## Registro práctico de eventos
+### Manejadores inline
+```html
+<button onclick="cambiarTexto()">Cambiar texto</button>
+```
+
+```javascript
+function cambiarTexto() {
+  const mensaje = document.getElementById("mensaje");
+  mensaje.innerText = "Nuevo texto";
+}
+```
+
+Esta forma permite visualizar el mecanismo evento → función, aunque mezcla comportamiento con marcado.
+
+### `addEventListener()`
+```html
+<button id="btnCambiar">Cambiar texto</button>
+```
+
+```javascript
+const boton = document.getElementById("btnCambiar");
+
+boton.addEventListener("click", () => {
+  console.log("Se hizo clic");
+});
+```
+
+El tipo de evento es `"click"`, no `"onclick"`.
+
+### Eventos usados en la clase
+```text
+click
+keydown
+change
+```
+
+Para reaccionar a cada modificación de texto de un `<input>`, el evento `input` suele resultar más específico que `keydown`.
+
+---
+
+## Formularios y valores
+### Asociación entre `label` e `input`
+```html
+<label for="nombre">Nombre</label>
+<input id="nombre" type="text">
+```
+
+El atributo `for` vincula la etiqueta con el control cuyo `id` coincide.
+
+### Propiedad `value`
+```html
+<select id="color">
+  <option value="red">Rojo</option>
+  <option value="blue">Azul</option>
+  <option value="green">Verde</option>
+</select>
+```
+
+```javascript
+const selector = document.getElementById("color");
+
+console.log(selector.value);
+```
+
+Ese valor puede utilizarse en una estructura de control como `switch`.
+
+---
+
+## Modificación de estilos desde JavaScript
+```javascript
+const entrada = document.getElementById("entrada");
+
+entrada.style.color = "red";
+entrada.style.backgroundColor = "black";
+entrada.style.fontWeight = "bold";
+```
+
+También existe `style.cssText`, pero para aplicaciones mantenibles suele ser preferible definir estilos en CSS y alternar clases desde JavaScript:
+
+```javascript
+entrada.classList.add("destacado");
+```
+
+---
+
+## Construcción dinámica de contenido
+```javascript
+const compras = ["carne", "ensalada", "bebida", "postre"];
+
+let items = "";
+
+for (let i = 0; i < compras.length; i++) {
+  items += `<li>${compras[i]}</li>`;
+}
+
+document.getElementById("lista").innerHTML = items;
+```
+
+Esta técnica ilustra cómo convertir datos en marcado. Más adelante también puede utilizarse la API DOM (`createElement`, `append`, etc.) para crear nodos directamente.
+
+---
+
+## Ejercicio integrador de DOM y módulos
 La clase combinó:
 
 1. datos definidos como objetos en un módulo;
@@ -2564,727 +2478,6 @@ La clase combinó:
 El ejercicio quedó **sin funcionar al cierre de la clase** y fue dejado pendiente para la siguiente. No se incorpora una solución atribuida a la cursada hasta que aparezca en la clase posterior.
 
 ---
-
-
-# Texto y tipografía en CSS
-
-## Alineación
-
-`text-align` controla la alineación horizontal del contenido inline dentro de un bloque.
-
-```css
-p {
-  text-align: center;
-}
-```
-
-Valores frecuentes:
-
-```css
-text-align: left;
-text-align: right;
-text-align: center;
-text-align: justify;
-```
-
-`justify` distribuye el texto para intentar alinear ambos bordes del bloque.
-
-## Decoración de texto
-
-```css
-a {
-  text-decoration: none;
-}
-```
-
-También pueden utilizarse valores como:
-
-```css
-text-decoration: underline;
-text-decoration: line-through;
-```
-
-## Sombra de texto
-
-```css
-h1 {
-  text-shadow: 4px 6px 8px rgb(0 0 0 / 0.4);
-}
-```
-
-La forma básica es:
-
-```text
-desplazamiento-x
-desplazamiento-y
-desenfoque
-color
-```
-
-El tercer valor no desplaza la sombra: controla su radio de desenfoque.
-
-## Familia tipográfica
-
-```css
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-```
-
-Conviene indicar una lista de fuentes de respaldo.
-
-También pueden utilizarse fuentes externas, por ejemplo mediante `@import` o mediante enlaces en HTML.
-
-```css
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-
-body {
-  font-family: "Roboto", sans-serif;
-}
-```
-
-En aplicaciones reales debe considerarse además el costo de red, la privacidad, el rendimiento y la estrategia de carga de fuentes.
-
----
-
-# Estados de enlaces
-
-Los enlaces pueden recibir estilos según distintas pseudo-clases.
-
-```css
-a:link {
-  color: brown;
-}
-
-a:visited {
-  color: gray;
-}
-
-a:hover {
-  color: blue;
-}
-
-a:active {
-  color: red;
-}
-```
-
-Significado:
-
-- `:link`: enlace todavía no visitado;
-- `:visited`: enlace visitado;
-- `:hover`: puntero sobre el enlace;
-- `:active`: enlace durante su activación, por ejemplo mientras se mantiene presionado el botón del mouse.
-
-No debe confundirse `:active` con un estado permanente de selección.
-
----
-
-# Tablas y CSS
-
-HTML proporciona elementos semánticos para tablas:
-
-```html
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Documento</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Ana</td>
-      <td>123</td>
-    </tr>
-  </tbody>
-</table>
-```
-
-Los elementos básicos son:
-
-- `table`: tabla;
-- `tr`: fila;
-- `th`: celda de encabezado;
-- `td`: celda de datos.
-
-## Bordes
-
-```css
-table,
-th,
-td {
-  border: 1px solid #777;
-}
-```
-
-Para unificar bordes contiguos:
-
-```css
-table {
-  border-collapse: collapse;
-}
-```
-
-## Filas alternadas con `:nth-child()`
-
-```css
-tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-```
-
-También:
-
-```css
-tbody tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-```
-
-Puede seleccionarse una posición concreta:
-
-```css
-tr:nth-child(4) {
-  background-color: red;
-}
-```
-
-`nth-child()` evalúa la posición del elemento entre sus hermanos.
-
----
-
-# `display` y flujo normal
-
-La propiedad `display` define cómo participa una caja en el layout y, según el valor, cómo se distribuyen sus hijos.
-
-## `block`
-
-```css
-.elemento {
-  display: block;
-}
-```
-
-Una caja block participa normalmente en el flujo ocupando el espacio horizontal disponible de su contenedor.
-
-Elementos como `div` y `p` suelen tener comportamiento block por defecto.
-
-## `inline`
-
-```css
-.elemento {
-  display: inline;
-}
-```
-
-Las cajas inline fluyen junto con el texto y no generan un salto de línea antes y después.
-
-Ejemplos habituales de elementos inline son `span` y `a`.
-
-No debe memorizarse una lista rígida de etiquetas: CSS puede cambiar el `display` de cualquier elemento.
-
-## `inline-block`
-
-```css
-.elemento {
-  display: inline-block;
-}
-```
-
-Permite que la caja participe como inline hacia afuera, pero conserve un comportamiento interno similar a una caja de bloque.
-
-Esto permite asignar cómodamente:
-
-```css
-width
-height
-padding
-margin
-```
-
-sin forzar un salto de línea como con `display: block`.
-
-## Cambiar el comportamiento por defecto
-
-```css
-div {
-  display: inline;
-}
-
-span {
-  display: block;
-}
-```
-
-La presentación inicial de una etiqueta no es una propiedad inmutable del HTML.
-
----
-
-# Posicionamiento
-
-## `static`
-
-```css
-.elemento {
-  position: static;
-}
-```
-
-Es el valor inicial. El elemento permanece en el flujo normal y los offsets como `top` o `left` no se aplican.
-
-## `relative`
-
-```css
-.elemento {
-  position: relative;
-  top: 20px;
-  left: 30px;
-}
-```
-
-El elemento conserva su espacio original en el flujo, pero su caja renderizada se desplaza respecto de su posición normal.
-
-Por eso puede llegar a superponerse visualmente con otros elementos.
-
-## `absolute`
-
-```css
-.padre {
-  position: relative;
-}
-
-.hijo {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-```
-
-Un elemento `absolute` sale del flujo normal.
-
-Se posiciona respecto de su **bloque contenedor**, que normalmente será el ancestro más cercano cuyo `position` no sea `static`.
-
-Si no existe ese ancestro, utiliza el bloque contenedor inicial.
-
-Por eso es habitual establecer:
-
-```css
-.padre {
-  position: relative;
-}
-```
-
-cuando se quiere que un hijo absoluto tome al padre como referencia.
-
-## `fixed`
-
-```css
-.boton-flotante {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-}
-```
-
-Normalmente se posiciona respecto del viewport y permanece en esa ubicación visual durante el scroll.
-
-Es útil para elementos como:
-
-- botones flotantes;
-- accesos persistentes;
-- algunas barras de interfaz.
-
-Existen casos en los que ciertas propiedades de ancestros —como transformaciones— pueden cambiar el bloque contenedor efectivo.
-
-## `sticky`
-
-```css
-.encabezado {
-  position: sticky;
-  top: 0;
-}
-```
-
-`sticky` participa inicialmente en el flujo como un elemento relativo y, al alcanzar el umbral configurado, queda adherido dentro de los límites de su contenedor de scroll.
-
-Para el eje correspondiente necesita un valor como `top`, `bottom`, etc.; sin un umbral no aparece el comportamiento sticky esperado.
-
----
-
-# `float`
-
-`float` desplaza una caja hacia un lado y permite que el contenido inline fluya alrededor.
-
-```css
-img {
-  float: left;
-  margin-right: 1rem;
-}
-```
-
-Históricamente se utilizó para construir layouts completos, pero hoy Flexbox y Grid son herramientas más apropiadas para la mayoría de los layouts generales.
-
-`float` sigue siendo útil para casos como imágenes acompañadas de texto.
-
----
-
-# Centrado horizontal clásico
-
-Para centrar horizontalmente una caja block con ancho limitado:
-
-```css
-.caja {
-  width: 600px;
-  margin: 0 auto;
-}
-```
-
-Los márgenes automáticos izquierdo y derecho absorben el espacio disponible.
-
-Esto centra la **caja**, no necesariamente su contenido textual.
-
-Para centrar texto dentro:
-
-```css
-.caja {
-  text-align: center;
-}
-```
-
----
-
-# Pseudo-elementos de contenido
-
-## `::first-letter`
-
-```css
-p::first-letter {
-  font-size: 3rem;
-  color: crimson;
-}
-```
-
-Permite dar estilo a la primera letra.
-
-## `::before` y `::after`
-
-```css
-.aviso::before {
-  content: "⚠ ";
-}
-
-.aviso::after {
-  content: " ✓";
-}
-```
-
-Permiten generar contenido presentacional antes o después del contenido real del elemento.
-
-No deben utilizarse para insertar información semántica esencial que deba existir en el documento o ser confiablemente accesible.
-
----
-
-# Animaciones CSS
-
-Las animaciones CSS permiten cambiar propiedades a lo largo del tiempo sin necesitar JavaScript para animaciones puramente visuales.
-
-## Definir keyframes
-
-```css
-@keyframes redondeo {
-  0% {
-    border-radius: 0;
-    background-color: red;
-    transform: rotate(0deg);
-  }
-
-  50% {
-    border-radius: 50%;
-    background-color: orange;
-    transform: rotate(90deg);
-  }
-
-  100% {
-    border-radius: 50%;
-    background-color: hotpink;
-    transform: rotate(180deg);
-  }
-}
-```
-
-Cada keyframe representa un punto de la secuencia temporal.
-
-## Aplicar la animación
-
-```css
-.caja {
-  animation: redondeo 4s 1s infinite;
-}
-```
-
-Esta forma abreviada puede incluir múltiples subpropiedades, entre ellas:
-
-- nombre;
-- duración;
-- función temporal;
-- demora;
-- cantidad de iteraciones;
-- dirección;
-- modo de relleno.
-
-Para mayor claridad puede escribirse:
-
-```css
-.caja {
-  animation-name: redondeo;
-  animation-duration: 4s;
-  animation-delay: 1s;
-  animation-iteration-count: infinite;
-}
-```
-
-Las animaciones no tienen que dividirse en porcentajes uniformes; los keyframes se colocan donde el efecto lo necesite.
-
----
-
-# Transiciones CSS
-
-Una transición anima el cambio entre un valor de propiedad y otro cuando ocurre una modificación de estado.
-
-```css
-.auto {
-  margin-left: 0;
-  transition: margin-left 4s ease;
-}
-
-.auto:hover {
-  margin-left: 80%;
-}
-```
-
-La transición no define una secuencia independiente como `@keyframes`; interpola un cambio entre estados.
-
-## Funciones temporales
-
-Valores frecuentes:
-
-```text
-ease
-linear
-ease-in
-ease-out
-ease-in-out
-```
-
-También puede construirse una curva personalizada:
-
-```css
-transition-timing-function: cubic-bezier(...);
-```
-
-Para animaciones más fluidas suele ser preferible transformar con `transform` en lugar de animar propiedades que obligan a recalcular layout, como `margin-left`, cuando el efecto visual lo permite.
-
----
-
-# CSS Grid
-
-Grid es un sistema de layout bidimensional basado en filas y columnas.
-
-## Crear un grid
-
-```css
-.contenedor {
-  display: grid;
-}
-```
-
-## Columnas con `fr`
-
-```css
-.contenedor {
-  grid-template-columns: repeat(4, 1fr);
-}
-```
-
-Esto crea cuatro tracks de columna que reparten equitativamente el espacio flexible disponible.
-
-`fr` significa **fracción del espacio disponible**, no literalmente una fracción del ancho total en todos los contextos, ya que otros tracks, gaps y tamaños mínimos también participan del cálculo.
-
-## Filas
-
-```css
-.contenedor {
-  grid-template-rows:
-    4rem
-    25%
-    1fr
-    3fr
-    auto;
-}
-```
-
-Grid permite combinar distintas unidades según el diseño.
-
-## Áreas con nombre
-
-```css
-.contenedor {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas:
-    "header menu menu menu"
-    "submenu submenu submenu submenu"
-    "main main main imagen"
-    "main main main extra"
-    "banner banner banner banner";
-}
-```
-
-Después cada elemento se asigna:
-
-```css
-.header {
-  grid-area: header;
-}
-
-.menu {
-  grid-area: menu;
-}
-
-.main {
-  grid-area: main;
-}
-```
-
-Repetir un mismo nombre en celdas contiguas crea un área rectangular que ocupa todas esas celdas.
-
-## Celdas vacías
-
-Un punto representa una celda sin nombre:
-
-```css
-grid-template-areas:
-  "header header"
-  ". main";
-```
-
-Las áreas nombradas deben formar rectángulos válidos.
-
----
-
-# Responsive design y media queries
-
-Un diseño responsive adapta su presentación al espacio y a características del entorno.
-
-Las media queries permiten aplicar CSS condicionalmente.
-
-```css
-@media screen and (max-width: 750px) {
-  .contenedor {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "header"
-      "menu"
-      "submenu"
-      "main"
-      "imagen"
-      "extra"
-      "banner";
-  }
-}
-```
-
-Al superar o cruzar el breakpoint, el layout puede reorganizarse.
-
-Para un intervalo:
-
-```css
-@media screen and (min-width: 751px) and (max-width: 1023px) {
-  /* layout intermedio */
-}
-```
-
-También existe sintaxis moderna de rangos:
-
-```css
-@media (751px <= width <= 1023px) {
-  /* layout intermedio */
-}
-```
-
-## Breakpoints
-
-Los valores `750px`, `1023px`, etc. no son reglas universales para “celular” o “tablet”.
-
-Un breakpoint debería elegirse según dónde el diseño necesita reorganizarse, no únicamente según categorías de dispositivos.
-
-## Grid + media queries
-
-Una estrategia potente consiste en mantener los mismos nombres de áreas y redefinir únicamente su distribución:
-
-```css
-.pagina {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "menu main";
-}
-
-@media (max-width: 750px) {
-  .pagina {
-    grid-template-areas:
-      "header"
-      "menu"
-      "main";
-  }
-}
-```
-
-Esto desacopla el orden visual del layout respecto de una única disposición rígida.
-
----
-
-# Flexbox, Grid y técnicas históricas
-
-Para layouts modernos:
-
-- **Flexbox** es especialmente apropiado para distribución en un eje y componentes;
-- **Grid** es especialmente apropiado para layouts bidimensionales;
-- `float` conserva casos de uso específicos, pero no es la primera opción para estructurar páginas;
-- `position` es fundamental para superposición y posicionamiento contextual, no como sustituto general de Grid o Flexbox;
-- tablas HTML deben reservarse para datos tabulares, no para maquetación.
-
-Elegir la herramienta correcta evita CSS frágil y reduce dependencias innecesarias entre posiciones y tamaños.
-
----
-
-
-# Temas abiertos
-
-Quedaron anunciados o todavía requieren mayor desarrollo:
-
-### JavaScript
-- resolución del ejercicio integrador de módulos + DOM iniciado en la Clase 5;
-- propagación y objeto `Event`;
-- creación de nodos con la API DOM;
-- event loop y modelo de ejecución asíncrona;
-- promesas;
-- consumo de APIs.
-
-### CSS
-- profundización sistemática en Flexbox;
-- accesibilidad y responsive design más allá de breakpoints por ancho;
-- estrategias modernas de imágenes, tipografía y performance.
-
-### Próximos lenguajes/herramientas
-- TypeScript;
-- Angular.
-
-Estas secciones se ampliarán cuando aparezcan en las clases siguientes.
-
----
-
 
 # CSS
 
@@ -3368,10 +2561,8 @@ Es válido, pero suele dificultar reutilización y mantenimiento cuando se usa c
 
 ---
 
-# Selectores CSS
-
-## Selector universal
-
+## Selectores CSS
+### Selector universal
 ```css
 * {
   box-sizing: border-box;
@@ -3380,8 +2571,7 @@ Es válido, pero suele dificultar reutilización y mantenimiento cuando se usa c
 
 Selecciona todos los elementos.
 
-## Selector de tipo
-
+### Selector de tipo
 ```css
 p {
   color: blue;
@@ -3390,8 +2580,7 @@ p {
 
 Selecciona todos los elementos de ese tipo.
 
-## Selector de clase
-
+### Selector de clase
 HTML:
 
 ```html
@@ -3425,8 +2614,7 @@ p.destacado {
 
 Esto selecciona únicamente párrafos que tengan la clase `destacado`.
 
-## Selector por ID
-
+### Selector por ID
 ```html
 <h1 id="titulo">Frontend</h1>
 ```
@@ -3439,8 +2627,7 @@ Esto selecciona únicamente párrafos que tengan la clase `destacado`.
 
 Un `id` debe ser único dentro del documento HTML. Aunque CSS pueda coincidir con más de un elemento si el HTML viola esa regla, no debe utilizarse el mismo `id` para agrupar elementos; para eso existen las clases.
 
-## Selector descendiente
-
+### Selector descendiente
 ```css
 div p {
   color: aquamarine;
@@ -3449,8 +2636,7 @@ div p {
 
 Selecciona cualquier `p` que sea descendiente de un `div`, no necesariamente hijo directo.
 
-## Agrupación de selectores
-
+### Agrupación de selectores
 ```css
 div h2,
 div h3 {
@@ -3462,8 +2648,7 @@ La coma permite aplicar el mismo bloque de declaraciones a varios selectores.
 
 ---
 
-# Cascada y especificidad
-
+## Cascada y especificidad
 La palabra *cascading* de CSS hace referencia al algoritmo que resuelve qué declaración termina aplicándose cuando varias reglas compiten por la misma propiedad.
 
 No alcanza con decir simplemente que “CSS lee de arriba hacia abajo”. El navegador considera, entre otros factores:
@@ -3503,8 +2688,7 @@ Si dos declaraciones aplicables poseen la misma especificidad, la que aparece de
 
 Si un elemento tiene ambas clases, el resultado será azul.
 
-## Especificidad básica
-
+### Especificidad básica
 Como modelo introductorio:
 
 ```text
@@ -3513,8 +2697,7 @@ ID > clase / pseudo-clase > tipo / pseudo-elemento
 
 Sin embargo, la cascada completa también considera origen, capas, `!important`, estilos inline y otros factores.
 
-## `!important`
-
+### `!important`
 ```css
 p {
   color: red !important;
@@ -3527,10 +2710,8 @@ Debe evitarse como solución habitual para “ganarle” a otros selectores porq
 
 ---
 
-# Pseudo-clases y pseudo-elementos
-
-## Pseudo-clases
-
+## Pseudo-clases y pseudo-elementos
+### Pseudo-clases
 Una pseudo-clase selecciona un elemento según un **estado o condición**.
 
 ```css
@@ -3552,8 +2733,7 @@ li:first-child { }
 
 Se escriben normalmente con un solo `:`.
 
-## Pseudo-elementos
-
+### Pseudo-elementos
 Un pseudo-elemento representa una parte específica o una abstracción del contenido de un elemento.
 
 ```css
@@ -3583,19 +2763,16 @@ La distinción conceptual es:
 
 ---
 
-# Colores en CSS
-
+## Colores en CSS
 CSS admite múltiples notaciones.
 
-## Palabras clave
-
+### Palabras clave
 ```css
 color: red;
 color: rebeccapurple;
 ```
 
-## Hexadecimal
-
+### Hexadecimal
 Forma completa:
 
 ```css
@@ -3630,16 +2807,14 @@ Por ejemplo:
 #abc → #aabbcc
 ```
 
-## `rgb()`
-
+### `rgb()`
 ```css
 color: rgb(255, 0, 0);
 ```
 
 En la sintaxis tradicional, cada canal utiliza valores entre 0 y 255.
 
-## Canal alfa
-
+### Canal alfa
 Puede expresarse transparencia:
 
 ```css
@@ -3650,8 +2825,115 @@ La sintaxis histórica `rgba(255, 0, 0, 0.5)` continúa siendo reconocida por lo
 
 ---
 
-# Bordes
+## Texto y tipografía
+### Alineación
+`text-align` controla la alineación horizontal del contenido inline dentro de un bloque.
 
+```css
+p {
+  text-align: center;
+}
+```
+
+Valores frecuentes:
+
+```css
+text-align: left;
+text-align: right;
+text-align: center;
+text-align: justify;
+```
+
+`justify` distribuye el texto para intentar alinear ambos bordes del bloque.
+
+### Decoración de texto
+```css
+a {
+  text-decoration: none;
+}
+```
+
+También pueden utilizarse valores como:
+
+```css
+text-decoration: underline;
+text-decoration: line-through;
+```
+
+### Sombra de texto
+```css
+h1 {
+  text-shadow: 4px 6px 8px rgb(0 0 0 / 0.4);
+}
+```
+
+La forma básica es:
+
+```text
+desplazamiento-x
+desplazamiento-y
+desenfoque
+color
+```
+
+El tercer valor no desplaza la sombra: controla su radio de desenfoque.
+
+### Familia tipográfica
+```css
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+Conviene indicar una lista de fuentes de respaldo.
+
+También pueden utilizarse fuentes externas, por ejemplo mediante `@import` o mediante enlaces en HTML.
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+```
+
+En aplicaciones reales debe considerarse además el costo de red, la privacidad, el rendimiento y la estrategia de carga de fuentes.
+
+---
+
+## Estados de enlaces
+Los enlaces pueden recibir estilos según distintas pseudo-clases.
+
+```css
+a:link {
+  color: brown;
+}
+
+a:visited {
+  color: gray;
+}
+
+a:hover {
+  color: blue;
+}
+
+a:active {
+  color: red;
+}
+```
+
+Significado:
+
+- `:link`: enlace todavía no visitado;
+- `:visited`: enlace visitado;
+- `:hover`: puntero sobre el enlace;
+- `:active`: enlace durante su activación, por ejemplo mientras se mantiene presionado el botón del mouse.
+
+No debe confundirse `:active` con un estado permanente de selección.
+
+---
+
+## Bordes
 La forma abreviada de `border` permite definir ancho, estilo y color:
 
 ```css
@@ -3681,8 +2963,7 @@ inset
 outset
 ```
 
-## `border-radius`
-
+### `border-radius`
 ```css
 .caja {
   border-radius: 12px;
@@ -3705,10 +2986,8 @@ puede producir una forma circular.
 
 ---
 
-# Unidades de medida
-
-## Longitudes absolutas
-
+## Unidades de medida
+### Longitudes absolutas
 CSS define unidades absolutas como:
 
 ```text
@@ -3726,8 +3005,7 @@ Las unidades físicas (`cm`, `mm`, `in`) tampoco garantizan una medida física e
 
 Por eso, “absoluta” en CSS significa que la unidad mantiene una relación fija dentro del sistema de unidades CSS, no que siempre mida físicamente lo mismo en cualquier dispositivo.
 
-## `em`
-
+### `em`
 `em` es relativa al tamaño de fuente.
 
 Para propiedades distintas de `font-size`, `1em` corresponde al `font-size` calculado del propio elemento.
@@ -3741,8 +3019,7 @@ Para propiedades distintas de `font-size`, `1em` corresponde al `font-size` calc
 
 Cuando `em` se utiliza para calcular `font-size`, la referencia es el tamaño de fuente del elemento padre.
 
-## `rem`
-
+### `rem`
 `rem` es relativa al `font-size` del elemento raíz, normalmente `<html>`.
 
 ```css
@@ -3757,8 +3034,7 @@ p {
 
 El valor habitual por defecto de muchos navegadores es 16px, pero no debe asumirse como una constante inalterable: puede cambiar por estilos o preferencias del usuario.
 
-## Porcentajes
-
+### Porcentajes
 El significado de `%` depende de la propiedad.
 
 Ejemplo:
@@ -3777,8 +3053,7 @@ El hijo tendrá la mitad del ancho de su bloque contenedor según las reglas de 
 
 No debe generalizarse que todo porcentaje se calcula siempre contra “el tamaño del padre”; la referencia exacta depende de cada propiedad.
 
-## Responsive design
-
+### Responsive design
 Las unidades relativas ayudan a construir interfaces adaptables, pero utilizar `px` no es automáticamente incorrecto.
 
 Una interfaz responsive combina adecuadamente:
@@ -3792,18 +3067,15 @@ Una interfaz responsive combina adecuadamente:
 
 ---
 
-# Fondos
-
-## Color de fondo
-
+## Fondos
+### Color de fondo
 ```css
 article {
   background-color: rgb(255, 0, 0);
 }
 ```
 
-## Imagen de fondo
-
+### Imagen de fondo
 ```css
 article {
   background-image: url("../img/logo.png");
@@ -3812,8 +3084,7 @@ article {
 
 La URL se resuelve respecto del archivo CSS que contiene la declaración.
 
-## Repetición
-
+### Repetición
 ```css
 article {
   background-repeat: no-repeat;
@@ -3822,16 +3093,14 @@ article {
 
 También existen valores como `repeat-x` y `repeat-y`.
 
-## Posición
-
+### Posición
 ```css
 article {
   background-position: center;
 }
 ```
 
-## Tamaño
-
+### Tamaño
 ```css
 article {
   background-size: 200px 200px;
@@ -3840,8 +3109,7 @@ article {
 
 Valores como `cover` y `contain` son especialmente frecuentes para fondos adaptables.
 
-## Shorthand `background`
-
+### Shorthand `background`
 Varias propiedades pueden combinarse:
 
 ```css
@@ -3858,10 +3126,8 @@ La barra `/` separa la posición del tamaño en esta forma abreviada.
 
 ---
 
-# Espaciado: `margin` y `padding`
-
-## `margin`
-
+## Espaciado: `margin` y `padding`
+### `margin`
 `margin` crea espacio por fuera del borde.
 
 ```css
@@ -3870,8 +3136,7 @@ La barra `/` separa la posición del tamaño en esta forma abreviada.
 }
 ```
 
-### Cuatro valores
-
+#### Cuatro valores
 ```css
 margin: 10px 20px 30px 40px;
 ```
@@ -3882,8 +3147,7 @@ Orden:
 arriba → derecha → abajo → izquierda
 ```
 
-### Tres valores
-
+#### Tres valores
 ```css
 margin: 10px 20px 30px;
 ```
@@ -3894,8 +3158,7 @@ equivale a:
 arriba | izquierda-derecha | abajo
 ```
 
-### Dos valores
-
+#### Dos valores
 ```css
 margin: 10px 20px;
 ```
@@ -3906,16 +3169,14 @@ equivale a:
 vertical | horizontal
 ```
 
-### Un valor
-
+#### Un valor
 ```css
 margin: 10px;
 ```
 
 se aplica a los cuatro lados.
 
-## `padding`
-
+### `padding`
 `padding` crea espacio entre el contenido y el borde:
 
 ```css
@@ -3928,8 +3189,7 @@ La sintaxis abreviada de 1, 2, 3 o 4 valores sigue la misma lógica que `margin`
 
 ---
 
-# Overflow
-
+## Overflow
 `overflow` controla qué ocurre cuando el contenido excede la caja disponible.
 
 ```css
@@ -3955,8 +3215,7 @@ overflow: auto;
 
 ---
 
-# Box model
-
+## Box model
 Todo elemento visual se representa mediante cajas compuestas por:
 
 ```text
@@ -3968,8 +3227,7 @@ margin
 
 El tamaño final depende de estas capas y de `box-sizing`.
 
-## `content-box`
-
+### `content-box`
 Es el valor inicial de `box-sizing`.
 
 ```css
@@ -3992,8 +3250,7 @@ El ancho exterior, sin contar margen, será:
 = 200px
 ```
 
-## `border-box`
-
+### `border-box`
 ```css
 .caja {
   box-sizing: border-box;
@@ -4019,12 +3276,393 @@ como normalización inicial de un proyecto.
 
 ---
 
-# Introducción a Flexbox y Grid
+## Tablas y CSS
+HTML proporciona elementos semánticos para tablas:
 
+```html
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Documento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ana</td>
+      <td>123</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+Los elementos básicos son:
+
+- `table`: tabla;
+- `tr`: fila;
+- `th`: celda de encabezado;
+- `td`: celda de datos.
+
+### Bordes
+```css
+table,
+th,
+td {
+  border: 1px solid #777;
+}
+```
+
+Para unificar bordes contiguos:
+
+```css
+table {
+  border-collapse: collapse;
+}
+```
+
+### Filas alternadas con `:nth-child()`
+```css
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+```
+
+También:
+
+```css
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+```
+
+Puede seleccionarse una posición concreta:
+
+```css
+tr:nth-child(4) {
+  background-color: red;
+}
+```
+
+`nth-child()` evalúa la posición del elemento entre sus hermanos.
+
+---
+
+## `display` y flujo normal
+La propiedad `display` define cómo participa una caja en el layout y, según el valor, cómo se distribuyen sus hijos.
+
+### `block`
+```css
+.elemento {
+  display: block;
+}
+```
+
+Una caja block participa normalmente en el flujo ocupando el espacio horizontal disponible de su contenedor.
+
+Elementos como `div` y `p` suelen tener comportamiento block por defecto.
+
+### `inline`
+```css
+.elemento {
+  display: inline;
+}
+```
+
+Las cajas inline fluyen junto con el texto y no generan un salto de línea antes y después.
+
+Ejemplos habituales de elementos inline son `span` y `a`.
+
+No debe memorizarse una lista rígida de etiquetas: CSS puede cambiar el `display` de cualquier elemento.
+
+### `inline-block`
+```css
+.elemento {
+  display: inline-block;
+}
+```
+
+Permite que la caja participe como inline hacia afuera, pero conserve un comportamiento interno similar a una caja de bloque.
+
+Esto permite asignar cómodamente:
+
+```css
+width
+height
+padding
+margin
+```
+
+sin forzar un salto de línea como con `display: block`.
+
+### Cambiar el comportamiento por defecto
+```css
+div {
+  display: inline;
+}
+
+span {
+  display: block;
+}
+```
+
+La presentación inicial de una etiqueta no es una propiedad inmutable del HTML.
+
+---
+
+## Posicionamiento
+### `static`
+```css
+.elemento {
+  position: static;
+}
+```
+
+Es el valor inicial. El elemento permanece en el flujo normal y los offsets como `top` o `left` no se aplican.
+
+### `relative`
+```css
+.elemento {
+  position: relative;
+  top: 20px;
+  left: 30px;
+}
+```
+
+El elemento conserva su espacio original en el flujo, pero su caja renderizada se desplaza respecto de su posición normal.
+
+Por eso puede llegar a superponerse visualmente con otros elementos.
+
+### `absolute`
+```css
+.padre {
+  position: relative;
+}
+
+.hijo {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+```
+
+Un elemento `absolute` sale del flujo normal.
+
+Se posiciona respecto de su **bloque contenedor**, que normalmente será el ancestro más cercano cuyo `position` no sea `static`.
+
+Si no existe ese ancestro, utiliza el bloque contenedor inicial.
+
+Por eso es habitual establecer:
+
+```css
+.padre {
+  position: relative;
+}
+```
+
+cuando se quiere que un hijo absoluto tome al padre como referencia.
+
+### `fixed`
+```css
+.boton-flotante {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+```
+
+Normalmente se posiciona respecto del viewport y permanece en esa ubicación visual durante el scroll.
+
+Es útil para elementos como:
+
+- botones flotantes;
+- accesos persistentes;
+- algunas barras de interfaz.
+
+Existen casos en los que ciertas propiedades de ancestros —como transformaciones— pueden cambiar el bloque contenedor efectivo.
+
+### `sticky`
+```css
+.encabezado {
+  position: sticky;
+  top: 0;
+}
+```
+
+`sticky` participa inicialmente en el flujo como un elemento relativo y, al alcanzar el umbral configurado, queda adherido dentro de los límites de su contenedor de scroll.
+
+Para el eje correspondiente necesita un valor como `top`, `bottom`, etc.; sin un umbral no aparece el comportamiento sticky esperado.
+
+---
+
+## `float`
+`float` desplaza una caja hacia un lado y permite que el contenido inline fluya alrededor.
+
+```css
+img {
+  float: left;
+  margin-right: 1rem;
+}
+```
+
+Históricamente se utilizó para construir layouts completos, pero hoy Flexbox y Grid son herramientas más apropiadas para la mayoría de los layouts generales.
+
+`float` sigue siendo útil para casos como imágenes acompañadas de texto.
+
+---
+
+## Centrado horizontal clásico
+Para centrar horizontalmente una caja block con ancho limitado:
+
+```css
+.caja {
+  width: 600px;
+  margin: 0 auto;
+}
+```
+
+Los márgenes automáticos izquierdo y derecho absorben el espacio disponible.
+
+Esto centra la **caja**, no necesariamente su contenido textual.
+
+Para centrar texto dentro:
+
+```css
+.caja {
+  text-align: center;
+}
+```
+
+---
+
+## Pseudo-elementos aplicados al contenido
+### `::first-letter`
+```css
+p::first-letter {
+  font-size: 3rem;
+  color: crimson;
+}
+```
+
+Permite dar estilo a la primera letra.
+
+### `::before` y `::after`
+```css
+.aviso::before {
+  content: "⚠ ";
+}
+
+.aviso::after {
+  content: " ✓";
+}
+```
+
+Permiten generar contenido presentacional antes o después del contenido real del elemento.
+
+No deben utilizarse para insertar información semántica esencial que deba existir en el documento o ser confiablemente accesible.
+
+---
+
+## Animaciones CSS
+Las animaciones CSS permiten cambiar propiedades a lo largo del tiempo sin necesitar JavaScript para animaciones puramente visuales.
+
+### Definir keyframes
+```css
+@keyframes redondeo {
+  0% {
+    border-radius: 0;
+    background-color: red;
+    transform: rotate(0deg);
+  }
+
+  50% {
+    border-radius: 50%;
+    background-color: orange;
+    transform: rotate(90deg);
+  }
+
+  100% {
+    border-radius: 50%;
+    background-color: hotpink;
+    transform: rotate(180deg);
+  }
+}
+```
+
+Cada keyframe representa un punto de la secuencia temporal.
+
+### Aplicar la animación
+```css
+.caja {
+  animation: redondeo 4s 1s infinite;
+}
+```
+
+Esta forma abreviada puede incluir múltiples subpropiedades, entre ellas:
+
+- nombre;
+- duración;
+- función temporal;
+- demora;
+- cantidad de iteraciones;
+- dirección;
+- modo de relleno.
+
+Para mayor claridad puede escribirse:
+
+```css
+.caja {
+  animation-name: redondeo;
+  animation-duration: 4s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+}
+```
+
+Las animaciones no tienen que dividirse en porcentajes uniformes; los keyframes se colocan donde el efecto lo necesite.
+
+---
+
+## Transiciones CSS
+Una transición anima el cambio entre un valor de propiedad y otro cuando ocurre una modificación de estado.
+
+```css
+.auto {
+  margin-left: 0;
+  transition: margin-left 4s ease;
+}
+
+.auto:hover {
+  margin-left: 80%;
+}
+```
+
+La transición no define una secuencia independiente como `@keyframes`; interpola un cambio entre estados.
+
+### Funciones temporales
+Valores frecuentes:
+
+```text
+ease
+linear
+ease-in
+ease-out
+ease-in-out
+```
+
+También puede construirse una curva personalizada:
+
+```css
+transition-timing-function: cubic-bezier(...);
+```
+
+Para animaciones más fluidas suele ser preferible transformar con `transform` en lugar de animar propiedades que obligan a recalcular layout, como `margin-left`, cuando el efecto visual lo permite.
+
+---
+
+## Layout moderno: Flexbox y Grid
 La clase presentó ambos modelos de layout solo a nivel conceptual.
 
-## Flexbox
-
+### Flexbox
 Flexbox es un modelo de layout **unidimensional**: trabaja principalmente sobre un eje a la vez.
 
 ```css
@@ -4038,8 +3676,7 @@ Puede distribuir, alinear y dimensionar elementos a lo largo del eje principal y
 
 Decir que es “unidimensional” no significa que solo pueda mover elementos horizontal *o* verticalmente en sentido absoluto; significa que su modelo de distribución principal organiza una dimensión a la vez.
 
-## Grid
-
+### Grid
 CSS Grid es un modelo de layout **bidimensional** pensado para trabajar simultáneamente con filas y columnas.
 
 ```css
@@ -4050,8 +3687,7 @@ CSS Grid es un modelo de layout **bidimensional** pensado para trabajar simultá
 
 Flexbox y Grid no compiten necesariamente: suelen combinarse según las necesidades del layout.
 
-## `gap`
-
+### `gap`
 `gap` define separación entre filas y/o columnas de un contenedor compatible:
 
 ```css
@@ -4065,76 +3701,229 @@ No agrega margen exterior al contenedor; controla el espacio entre los ítems.
 
 ---
 
+## CSS Grid
+Grid es un sistema de layout bidimensional basado en filas y columnas.
+
+### Crear un grid
+```css
+.contenedor {
+  display: grid;
+}
+```
+
+### Columnas con `fr`
+```css
+.contenedor {
+  grid-template-columns: repeat(4, 1fr);
+}
+```
+
+Esto crea cuatro tracks de columna que reparten equitativamente el espacio flexible disponible.
+
+`fr` significa **fracción del espacio disponible**, no literalmente una fracción del ancho total en todos los contextos, ya que otros tracks, gaps y tamaños mínimos también participan del cálculo.
+
+### Filas
+```css
+.contenedor {
+  grid-template-rows:
+    4rem
+    25%
+    1fr
+    3fr
+    auto;
+}
+```
+
+Grid permite combinar distintas unidades según el diseño.
+
+### Áreas con nombre
+```css
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "header menu menu menu"
+    "submenu submenu submenu submenu"
+    "main main main imagen"
+    "main main main extra"
+    "banner banner banner banner";
+}
+```
+
+Después cada elemento se asigna:
+
+```css
+.header {
+  grid-area: header;
+}
+
+.menu {
+  grid-area: menu;
+}
+
+.main {
+  grid-area: main;
+}
+```
+
+Repetir un mismo nombre en celdas contiguas crea un área rectangular que ocupa todas esas celdas.
+
+### Celdas vacías
+Un punto representa una celda sin nombre:
+
+```css
+grid-template-areas:
+  "header header"
+  ". main";
+```
+
+Las áreas nombradas deben formar rectángulos válidos.
+
+---
+
+## Responsive design y media queries
+Un diseño responsive adapta su presentación al espacio y a características del entorno.
+
+Las media queries permiten aplicar CSS condicionalmente.
+
+```css
+@media screen and (max-width: 750px) {
+  .contenedor {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "menu"
+      "submenu"
+      "main"
+      "imagen"
+      "extra"
+      "banner";
+  }
+}
+```
+
+Al superar o cruzar el breakpoint, el layout puede reorganizarse.
+
+Para un intervalo:
+
+```css
+@media screen and (min-width: 751px) and (max-width: 1023px) {
+  /* layout intermedio */
+}
+```
+
+También existe sintaxis moderna de rangos:
+
+```css
+@media (751px <= width <= 1023px) {
+  /* layout intermedio */
+}
+```
+
+### Breakpoints
+Los valores `750px`, `1023px`, etc. no son reglas universales para “celular” o “tablet”.
+
+Un breakpoint debería elegirse según dónde el diseño necesita reorganizarse, no únicamente según categorías de dispositivos.
+
+### Grid + media queries
+Una estrategia potente consiste en mantener los mismos nombres de áreas y redefinir únicamente su distribución:
+
+```css
+.pagina {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "menu main";
+}
+
+@media (max-width: 750px) {
+  .pagina {
+    grid-template-areas:
+      "header"
+      "menu"
+      "main";
+  }
+}
+```
+
+Esto desacopla el orden visual del layout respecto de una única disposición rígida.
+
+---
+
+## Cómo elegir una técnica de layout
+Para layouts modernos:
+
+- **Flexbox** es especialmente apropiado para distribución en un eje y componentes;
+- **Grid** es especialmente apropiado para layouts bidimensionales;
+- `float` conserva casos de uso específicos, pero no es la primera opción para estructurar páginas;
+- `position` es fundamental para superposición y posicionamiento contextual, no como sustituto general de Grid o Flexbox;
+- tablas HTML deben reservarse para datos tabulares, no para maquetación.
+
+Elegir la herramienta correcta evita CSS frágil y reduce dependencias innecesarias entre posiciones y tamaños.
+
+---
+
+# Temas abiertos
+
+La biblioteca ya cubre los fundamentos trabajados hasta esta etapa. Quedan áreas anunciadas o todavía no desarrolladas con suficiente profundidad:
+
+## JavaScript y navegador
+
+- resolución completa del ejercicio integrador de módulos + DOM iniciado anteriormente;
+- propagación de eventos y objeto `Event`;
+- creación y eliminación de nodos con la API DOM;
+- event loop con mayor profundidad;
+- promesas y `async`/`await`;
+- consumo de APIs.
+
+## CSS
+
+- Flexbox en profundidad;
+- accesibilidad aplicada al diseño responsive;
+- estrategias de imágenes, tipografía y rendimiento;
+- patrones de layout más complejos combinando Grid y Flexbox.
+
+## Próximas tecnologías
+
+- TypeScript;
+- Angular.
+
+Estos puntos deben integrarse en las secciones correspondientes cuando sean desarrollados, en lugar de acumularse como capítulos cronológicos nuevos.
+
 # Referencias técnicas
 
-- MDN Web Docs — CSS text: https://developer.mozilla.org/docs/Web/CSS/CSS_text
-- MDN Web Docs — `display`: https://developer.mozilla.org/docs/Web/CSS/display
-- MDN Web Docs — `position`: https://developer.mozilla.org/docs/Web/CSS/position
-- MDN Web Docs — `float`: https://developer.mozilla.org/docs/Web/CSS/float
-- MDN Web Docs — CSS animations: https://developer.mozilla.org/docs/Web/CSS/CSS_animations
-- MDN Web Docs — CSS transitions: https://developer.mozilla.org/docs/Web/CSS/CSS_transitions
-- MDN Web Docs — CSS Grid: https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout
-- MDN Web Docs — Grid template areas: https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout/Grid_template_areas
-- MDN Web Docs — Media queries: https://developer.mozilla.org/docs/Web/CSS/CSS_media_queries
+Las referencias se agrupan por dominio. Se priorizan fuentes oficiales o de referencia general; los enlaces muy específicos se incorporarán junto al concepto solo cuando aporten una precisión que la referencia general no cubra bien.
 
-- MDN Web Docs — CSS: https://developer.mozilla.org/docs/Web/CSS
-- MDN Web Docs — CSS selectors: https://developer.mozilla.org/docs/Web/CSS/CSS_selectors
-- MDN Web Docs — Cascade: https://developer.mozilla.org/docs/Web/CSS/CSS_cascade/Cascade
-- MDN Web Docs — Specificity: https://developer.mozilla.org/docs/Web/CSS/CSS_cascade/Specificity
-- MDN Web Docs — CSS values and units: https://developer.mozilla.org/docs/Learn_web_development/Core/Styling_basics/Values_and_units
-- MDN Web Docs — Box model: https://developer.mozilla.org/docs/Learn_web_development/Core/Styling_basics/Box_model
-- MDN Web Docs — `box-sizing`: https://developer.mozilla.org/docs/Web/CSS/box-sizing
-- MDN Web Docs — Backgrounds and borders: https://developer.mozilla.org/docs/Web/CSS/CSS_backgrounds_and_borders
-- MDN Web Docs — Flexbox: https://developer.mozilla.org/docs/Web/CSS/CSS_flexible_box_layout
-- MDN Web Docs — Grid: https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout
+## HTML y accesibilidad
 
-- MDN Web Docs — `<script>`: https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/script
-- MDN Web Docs — JavaScript modules: https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules
-- MDN Web Docs — `getElementById()`: https://developer.mozilla.org/docs/Web/API/Document/getElementById
-- MDN Web Docs — `querySelectorAll()`: https://developer.mozilla.org/docs/Web/API/Document/querySelectorAll
-- MDN Web Docs — `NodeList`: https://developer.mozilla.org/docs/Web/API/NodeList
-- MDN Web Docs — `innerText`: https://developer.mozilla.org/docs/Web/API/HTMLElement/innerText
-- MDN Web Docs — `innerHTML`: https://developer.mozilla.org/docs/Web/API/Element/innerHTML
-- MDN Web Docs — `classList`: https://developer.mozilla.org/docs/Web/API/Element/classList
-- MDN Web Docs — `<label>`: https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/label
+- **MDN — HTML:** https://developer.mozilla.org/docs/Web/HTML
+- **MDN — HTML y accesibilidad:** https://developer.mozilla.org/docs/Learn_web_development/Core/Accessibility/HTML
 
-- MDN Web Docs — DOM: https://developer.mozilla.org/docs/Web/API/Document_Object_Model
-- MDN Web Docs — Events: https://developer.mozilla.org/docs/Learn_web_development/Core/Scripting/Events
-- MDN Web Docs — `addEventListener()`: https://developer.mozilla.org/docs/Web/API/EventTarget/addEventListener
-- MDN Web Docs — `try...catch`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/try...catch
-- MDN Web Docs — Array: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
-- MDN Web Docs — `filter()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-- MDN Web Docs — `find()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-- MDN Web Docs — `findIndex()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
-- MDN Web Docs — `some()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/some
-- MDN Web Docs — `every()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/every
-- MDN Web Docs — `slice()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
-- MDN Web Docs — `splice()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
-- MDN Web Docs — `forEach()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-- MDN Web Docs — `map()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-- MDN Web Docs — `sort()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-- MDN Web Docs — `toSorted()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted
+## JavaScript
 
-- MDN Web Docs — Template literals: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals
-- MDN Web Docs — JSON: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON
-- MDN Web Docs — `JSON.stringify()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
-- MDN Web Docs — `JSON.parse()`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
-- MDN Web Docs — Functions: https://developer.mozilla.org/docs/Web/JavaScript/Guide/Functions
-- MDN Web Docs — Hoisting: https://developer.mozilla.org/docs/Glossary/Hoisting
-- MDN Web Docs — `setTimeout()`: https://developer.mozilla.org/docs/Web/API/Window/setTimeout
+- **MDN — JavaScript Guide:** https://developer.mozilla.org/docs/Web/JavaScript/Guide
+- **MDN — tipos y estructuras de datos:** https://developer.mozilla.org/docs/Web/JavaScript/Data_structures
+- **MDN — funciones:** https://developer.mozilla.org/docs/Web/JavaScript/Guide/Functions
+- **MDN — modelo de ejecución:** https://developer.mozilla.org/docs/Web/JavaScript/Reference/Execution_model
+- **MDN — gestión de memoria:** https://developer.mozilla.org/docs/Web/JavaScript/Guide/Memory_management
 
-- MDN Web Docs — JavaScript Guide: https://developer.mozilla.org/docs/Web/JavaScript/Guide
-- MDN Web Docs — JavaScript execution model: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Execution_model
-- MDN Web Docs — Grammar and types: https://developer.mozilla.org/docs/Web/JavaScript/Guide/Grammar_and_types
-- MDN Web Docs — `let`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/let
-- MDN Web Docs — `const`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/const
-- MDN Web Docs — `var`: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/var
-- MDN Web Docs — Arrow functions: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Functions/Arrow_functions
-- MDN Web Docs — Data structures: https://developer.mozilla.org/docs/Web/JavaScript/Data_structures
-- MDN Web Docs — Memory management: https://developer.mozilla.org/docs/Web/JavaScript/Guide/Memory_management
+## DOM y APIs del navegador
 
-- MDN Web Docs — HTML: https://developer.mozilla.org/docs/Web/HTML
-- MDN Web Docs — HTML semántico y accesibilidad: https://developer.mozilla.org/docs/Learn_web_development/Core/Accessibility/HTML
-- Angular — documentación oficial: https://angular.dev/
-- Angular — migración a control flow: https://angular.dev/reference/migrations/control-flow
-- Angular — migración a standalone: https://angular.dev/reference/migrations/standalone
+- **MDN — Document Object Model:** https://developer.mozilla.org/docs/Web/API/Document_Object_Model
+- **MDN — eventos:** https://developer.mozilla.org/docs/Learn_web_development/Core/Scripting/Events
+- **MDN — JavaScript modules:** https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules
+
+## CSS
+
+- **MDN — CSS:** https://developer.mozilla.org/docs/Web/CSS
+- **MDN — selectores:** https://developer.mozilla.org/docs/Web/CSS/CSS_selectors
+- **MDN — cascada y especificidad:** https://developer.mozilla.org/docs/Web/CSS/CSS_cascade
+- **MDN — valores y unidades:** https://developer.mozilla.org/docs/Learn_web_development/Core/Styling_basics/Values_and_units
+- **MDN — box model:** https://developer.mozilla.org/docs/Learn_web_development/Core/Styling_basics/Box_model
+- **MDN — Flexbox:** https://developer.mozilla.org/docs/Web/CSS/CSS_flexible_box_layout
+- **MDN — Grid:** https://developer.mozilla.org/docs/Web/CSS/CSS_grid_layout
+- **MDN — media queries:** https://developer.mozilla.org/docs/Web/CSS/CSS_media_queries
+
+## Ecosistema Angular
+
+- **Angular — documentación oficial:** https://angular.dev/
